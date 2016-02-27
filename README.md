@@ -1,7 +1,7 @@
 <img src="cover.png"/>
 
 [![Build Status](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase.svg?branch=master)](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase)
-[![Coverage Status](https://coveralls.io/repos/github/AlexDisler/cordova-plugin-inapppurchase/badge.svg?branch=master)](https://coveralls.io/github/AlexDisler/cordova-plugin-inapppurchase?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/AlexDisler/cordova-plugin-inapppurchase/badge.svg?branch=master&a=1)](https://coveralls.io/github/AlexDisler/cordova-plugin-inapppurchase?branch=master)
 
 A lightweight cordova plugin for in app purchases on iOS/Android. See [demo app](https://github.com/AlexDisler/ionic-inapppurchases-app).
 
