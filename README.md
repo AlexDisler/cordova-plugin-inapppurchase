@@ -170,7 +170,11 @@ Example:
 
 Or, if you would like to watch and re-run tests:
 
-    $ npm watch
+    $ npm run watch
+
+Coverage report:
+
+    $ nyc npm test
 
 ## Thanks / Credits
 
