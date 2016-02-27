@@ -100,8 +100,8 @@ Call this function after purchasing a "consumable" product to mark it as consume
 
 ___NOTE: This function is only relevant to Android purchases.___
 
-On ***Android***, you must consume products of type CONSUMABLE. If you will not consume the product after a purchase, next time you will attempt to purchase this product you will get the error message:
-```"{"code":-9,"message":"Item already owned","text":"Unable to buy item (response: 7:Item Already Owned)","response":7}"```
+On ***Android***, you must consume products of type ```CONSUMABLE```. If you will not consume the product after a purchase, the next time you will attempt to purchase this product you will get the error message:
+```Unable to buy item / Item already owned```
 
 On ***iOS*** there is no need to "consume" a product. However, in order to make your code cross platform, it is recommended to call it for iOS consumable purchases as well.
 
