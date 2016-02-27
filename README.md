@@ -1,5 +1,7 @@
 <img src="cover.png"/>
 
+[![Build Status](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase.svg?branch=master)](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase)
+
 A lightweight cordova plugin for in app purchases on iOS/Android.
 
 ## Features:
