@@ -133,7 +133,7 @@ If successful, the promise resolves to an object with the following attributes:
 - ```state``` - the state of the product. On ***Android*** the statuses are: ```0 - ACTIVE, 1 - CANCELLED,  2 - REFUNDED)```
 - ```date``` - timestamp of the purchase
 - ```transactionId``` - (iOS only)
-- ```packageName``` - (Android only) the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
+- ```packageName``` - the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
 
 Example:
 
