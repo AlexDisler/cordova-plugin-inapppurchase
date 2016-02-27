@@ -136,7 +136,7 @@ If successful, the promise resolves to an object with the following attributes:
 - ```packageName``` - the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
 - ```transactionId```
 
-Example:
+___Example:___
 
 ```js
   inAppPurchase
