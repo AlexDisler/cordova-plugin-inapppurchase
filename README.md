@@ -33,7 +33,7 @@ You can get this key from the Google Play Store (under "Services & APIs") after 
 
 All functions return a Promise
 
-### #inAppPurchase.getProducts(productIds)
+### inAppPurchase.getProducts(productIds)
 
 - ___productIds___ - an array of product ids
 
@@ -62,19 +62,17 @@ ___Example:___
     });
 ```
 
-### #buy()
-
-***inAppPurchase.buy(productId)***
+### inAppPurchase.buy(productId)
 
 - ___productId___ - a string of the productId
 
 If successful, the promise resolves to an object with the following attributes:
 
-- productId
-- transactionId - the transaction/order id
-- receipt - on iOS it will be the base64 string of the receipt, on Android it will be ...
+- ```productId```
+- ```transactionId``` - the transaction/order id
+- receipt - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation.
 
-Example:
+___Example:___
 
 ```js
   inAppPurchase
@@ -94,22 +92,20 @@ Example:
     });
 ```
 
-### #consume()
+### inAppPurchase.consume(transactionId)
 
-***inAppPurchase.consume(receipt)***
-
-- ___receipt___ - a string of the receipt (Android's purchase token) from the response of the buy() function above
+- ___transactionId___ - transaction / order id returned by the buy() function above.
 
 Call this function after purchasing a "consumable" product to mark it as consumed.
 
-NOTE: This function is only relevant to Android purchases.
+___NOTE: This function is only relevant to Android purchases.___
 
 On ***Android***, you must consume products of type CONSUMABLE. If you will not consume the product after a purchase, next time you will attempt to purchase this product you will get the error message:
 ```"{"code":-9,"message":"Item already owned","text":"Unable to buy item (response: 7:Item Already Owned)","response":7}"```
 
-On ***iOS*** there is no need to "consume" a product. However, in order to make your code cross platform, it is recommended to call it for iOS purchases as well.
+On ***iOS*** there is no need to "consume" a product. However, in order to make your code cross platform, it is recommended to call it for iOS consumable purchases as well.
 
-Example:
+___Example:___
 
 ```js
   // fist buy the product...
@@ -117,7 +113,7 @@ Example:
     .buy('com.yourapp.consumable_prod1')
     .then(function (data) {
       // ...then mark it as consumed:
-      return inAppPurchase.consume(data.receipt);
+      return inAppPurchase.consume(data.transactionId);
     })
     .then(function (data) {
       console.log('product was successfully consumed!');
@@ -127,17 +123,16 @@ Example:
     });
 ```
 
-### #restorePurchases()
-
-***inAppPurchase.restorePurchases()***
+### inAppPurchase.restorePurchases()
 
 If successful, the promise resolves to an object with the following attributes:
 
-- productId
-- state - the state of the product (ACTIVE, CANCELLED or REFUNDED)
-- date - timestamp of the purchase
-- transactionId - (iOS only)
-- packageName - (Android only) the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
+- ```productId```
+- ```state``` - the state of the product
+___On ***Android*** the statuses are: ```0 - ACTIVE, 1 - CANCELLED,  2 - REFUNDED)```
+- ```date``` - timestamp of the purchase
+- ```transactionId``` - (iOS only)
+- ```packageName``` - (Android only) the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
 
 Example:
 
