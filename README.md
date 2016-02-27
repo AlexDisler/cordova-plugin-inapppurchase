@@ -31,7 +31,7 @@ You can get this key from the Google Play Store (under "Services & APIs") after 
 
 ## API
 
-All functions return a Promise
+All functions return a Promise.
 
 ### inAppPurchase.getProducts(productIds)
 
@@ -96,7 +96,7 @@ ___Example:___
 
 ### inAppPurchase.consume(transactionId)
 
-- ___transactionId___ - transaction / order id returned by the buy() function above.
+- ___transactionId___ - transaction / order id returned by the buy() function above
 
 Call this function after purchasing a "consumable" product to mark it as consumed.
 
@@ -166,6 +166,10 @@ Example:
 ### Run tests:
 
     $ npm test
+
+Or, if you would like to watch and re-run tests:
+
+    $ npm watch
 
 ## Thanks / Credits
 
