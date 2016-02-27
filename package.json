@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register --require babel-polyfill test/*",
     "watch": "./node_modules/mocha/bin/mocha --watch --compilers js:babel-core/register --require babel-polyfill test/*",
-    "check-coverage": "./node_modules/nyc/bin/nyc.js --check-coverage npm test"
+    "coverage": "./node_modules/nyc/bin/nyc.js --check-coverage npm test"
   },
   "repository": {
     "type": "git",
