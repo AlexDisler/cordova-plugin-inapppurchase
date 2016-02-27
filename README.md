@@ -1,5 +1,3 @@
-# cordova-plugin-inapppurchase
-
 <img src="cover.png"/>
 
 A lightweight cordova plugin for in app purchases on iOS/Android.
