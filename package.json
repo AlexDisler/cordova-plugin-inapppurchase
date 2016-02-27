@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register --require babel-polyfill test/*",
     "watch": "./node_modules/mocha/bin/mocha --watch --compilers js:babel-core/register --require babel-polyfill test/*",
-    "coverage": "./node_modules/nyc/bin/nyc.js --check-coverage npm test"
+    "coverage": "./node_modules/nyc/bin/nyc.js npm test && ./node_modules/nyc/bin/nyc.js report --reporter=text-lcov | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "babel-plugin-transform-regenerator": "6.5.2",
     "babel-polyfill": "6.5.0",
     "babel-preset-es2015": "6.5.0",
+    "coveralls": "2.11.8",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-concat": "2.6.0",
