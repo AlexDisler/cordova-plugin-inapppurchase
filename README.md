@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase.svg?branch=master)](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase)
 
-A lightweight cordova plugin for in app purchases on iOS/Android.
+A lightweight cordova plugin for in app purchases on iOS/Android. See [demo app](https://github.com/AlexDisler/ionic-inapppurchases-app).
 
 ## Features:
 
@@ -103,7 +103,7 @@ Call this function after purchasing a "consumable" product to mark it as consume
 ___NOTE: This function is only relevant to Android purchases.___
 
 On ***Android***, you must consume products of type ```CONSUMABLE```. If you will not consume the product after a purchase, the next time you will attempt to purchase this product you will get the error message:
-```Unable to buy item / Item already owned```
+```Unable to buy item / Item already owned```.
 
 On ***iOS*** there is no need to "consume" a product. However, in order to make your code cross platform, it is recommended to call it for iOS consumable purchases as well.
 
