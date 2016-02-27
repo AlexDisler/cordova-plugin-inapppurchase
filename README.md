@@ -37,9 +37,9 @@ All functions return a Promise
 
 - ___productIds___ - an array of product ids
 
-Retrieves a list of full product data from Apple/Google. This method must be called before any purchases are attempted.
+Retrieves a list of full product data from Apple/Google. This function must be called before any purchases are attempted.
 
-If successful, the promise resolves to an array of objects. Every object has the following attributes:
+If successful, the promise resolves to an array of objects. Each object has the following attributes:
 
 - ```productId``` - SKU / product bundle id (such as 'com.yourapp.prod1')
 - ```title``` - short localized title
