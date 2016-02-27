@@ -234,13 +234,13 @@ describe('Android purchases', () => {
 
   describe('#restorePurchases()', () => {
 
-    it('should call the Android getPurchases() function with the correct args ', async (done) => {
+    it('should call the Android restorePurchases() function with the correct args ', async (done) => {
       try {
         GLOBAL.window.cordova.exec = (success, err, pluginName, name) => {
           assert(typeof success === 'function', 'should define a success callback');
           assert(typeof err === 'function', 'should define an error callback');
           assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
-          assert(name === 'getPurchases', 'invalid function name');
+          assert(name === 'restorePurchases', 'invalid function name');
           success([{}]);
         };
         await inAppPurchase.restorePurchases();
