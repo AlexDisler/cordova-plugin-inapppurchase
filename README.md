@@ -33,20 +33,18 @@ You can get this key from the Google Play Store (under "Services & APIs") after 
 
 All functions return a Promise
 
-### #getProducts()
-
-Retrieves a list of full product data from Apple/Google. This method must be called before any purchases are attempted.
-
-***inAppPurchase.getProducts(productIds)***
+### #inAppPurchase.getProducts(productIds)
 
 - ___productIds___ - an array of product ids
 
+Retrieves a list of full product data from Apple/Google. This method must be called before any purchases are attempted.
+
 If successful, the promise resolves to an array of objects. Every object has the following attributes:
 
-- productId - SKU / product bundle id (such as 'com.yourapp.prod1')
-- title - short localized title
-- description - long localized description
-- price - localized price
+- ```productId``` - SKU / product bundle id (such as 'com.yourapp.prod1')
+- ```title``` - short localized title
+- ```description``` - long localized description
+- ```price``` - localized price
 
 ___Example:___
 
