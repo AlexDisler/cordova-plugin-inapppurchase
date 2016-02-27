@@ -4,7 +4,7 @@
   "description": "A lightweight cordova plugin for in app purchases on iOS and Android with a simple promise based API.",
   "main": "www/index-ios.js",
   "scripts": {
-    "test": "mocha --watch --compilers js:babel-core/register --require babel-polyfill test/*"
+    "test": "./node_modules/mocha/bin/mocha --watch --compilers js:babel-core/register --require babel-polyfill test/*"
   },
   "repository": {
     "type": "git",
@@ -47,6 +47,7 @@
     "gulp-concat": "2.6.0",
     "gulp-plumber": "1.1.0",
     "gulp-util": "^3.0.7",
+    "mocha": "2.4.5",
     "vinyl-source-stream": "^1.1.0"
   }
 }
