@@ -70,7 +70,7 @@ If successful, the promise resolves to an object with the following attributes:
 
 - ```productId```
 - ```transactionId``` - the transaction/order id
-- receipt - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation.
+- ```receipt``` - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation such as ```{"orderId":"...","packageName:"...","productId":"...","purchaseState":"...","purchaseToken":"..."}```
 
 ___Example:___
 
