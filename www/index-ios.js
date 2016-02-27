@@ -1,5 +1,14 @@
 'use strict';
 
+/*!
+ *
+ * Author: Alex Disler (alexdisler.com)
+ * github.com/alexdisler/cordova-plugin-inapppurchase
+ *
+ * Licensed under the MIT license. Please see README for more information.
+ *
+ */
+
 var utils = {};
 
 utils.errors = {
@@ -20,7 +29,7 @@ utils.validString = function (val) {
 
 /*!
  *
- * Author: Alex Disler (alexdisler@gmail.com)
+ * Author: Alex Disler (alexdisler.com)
  * github.com/alexdisler/cordova-plugin-inapppurchase
  *
  * Licensed under the MIT license. Please see README for more information.
@@ -51,8 +60,6 @@ inAppPurchase.getProducts = function (productIds) {
           resolve([]);
         } else {
           var arr = res.products.map(function (val) {
-            console.log('here!!!');
-            console.log(JSON.stringify(val));
             return {
               productId: val.productId,
               title: val.title,
@@ -88,9 +95,9 @@ inAppPurchase.buy = function (productId) {
  * where this function is required.
  * See README for more details.
  */
-inAppPurchase.consume = function (receipt) {
+inAppPurchase.consume = function (transactionId) {
   return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(receipt)) {
+    if (!inAppPurchase.utils.validString(transactionId)) {
       reject(new Error(inAppPurchase.utils.errors[102]));
     } else {
       resolve();

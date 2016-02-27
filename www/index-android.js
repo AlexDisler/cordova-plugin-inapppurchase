@@ -1,5 +1,14 @@
 'use strict';
 
+/*!
+ *
+ * Author: Alex Disler (alexdisler.com)
+ * github.com/alexdisler/cordova-plugin-inapppurchase
+ *
+ * Licensed under the MIT license. Please see README for more information.
+ *
+ */
+
 var utils = {};
 
 utils.errors = {
@@ -20,7 +29,7 @@ utils.validString = function (val) {
 
 /*!
  *
- * Author: Alex Disler (alexdisler@gmail.com)
+ * Author: Alex Disler (alexdisler.com)
  * github.com/alexdisler/cordova-plugin-inapppurchase
  *
  * Licensed under the MIT license. Please see README for more information.
@@ -29,17 +38,13 @@ utils.validString = function (val) {
 
 var inAppPurchase = { utils: utils };
 
-var nativeCall = function nativeCall(name, args) {
-  console.log('calling:  ' + name);
-  console.log('with args:  ' + JSON.stringify(args));
+var nativeCall = function nativeCall(name) {
+  var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+
   return new Promise(function (resolve, reject) {
     window.cordova.exec(function (res) {
-      console.log('success:');
-      console.log(JSON.stringify(res));
       resolve(res);
     }, function (err) {
-      console.log('error:');
-      console.log(JSON.stringify(err));
       reject(err);
     }, 'InAppBillingV3', name, args);
   });
@@ -61,8 +66,6 @@ inAppPurchase.getProducts = function (productIds) {
             price: val.price
           };
         });
-        // console.log('getProducts() arr answer');
-        // console.log(JSON.stringify(arr));
         resolve(arr);
       }).catch(reject);
     }
@@ -105,7 +108,6 @@ inAppPurchase.consume = function (transactionId) {
 
 inAppPurchase.restorePurchases = function () {
   return nativeCall('restorePurchases', []).then(function (purchases) {
-    console.log(purchases);
     var arr = [];
     if (purchases) {
       arr = purchases.map(function (val) {
@@ -113,7 +115,7 @@ inAppPurchase.restorePurchases = function () {
           productId: val.productId,
           state: val.state,
           date: val.date,
-          tokun: val.token, // <- Android only
+          token: val.token, // <- Android only
           type: val.type };
       });
     }

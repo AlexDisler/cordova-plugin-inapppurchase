@@ -1,6 +1,6 @@
 /*!
  *
- * Author: Alex Disler (alexdisler@gmail.com)
+ * Author: Alex Disler (alexdisler.com)
  * github.com/alexdisler/cordova-plugin-inapppurchase
  *
  * Licensed under the MIT license. Please see README for more information.

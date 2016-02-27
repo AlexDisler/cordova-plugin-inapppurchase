@@ -4,7 +4,7 @@
 
 /**
  *
- * Modifications: Alex Disler (alexdisler@gmail.com)
+ * Modifications: Alex Disler (alexdisler.com)
  * github.com/alexdisler/cordova-plugin-inapppurchase
  *
  */
