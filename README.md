@@ -66,9 +66,8 @@ ___Example:___
 
 - ___productId___ - a string of the productId
 
-If successful, the promise resolves to an object with the following attributes:
+If successful, the promise resolves to an object with the following attributes that you will need for the receipt validation:
 
-- ```productId```
 - ```transactionId``` - the transaction/order id
 - ```receipt``` - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation such as ```{"orderId":"...","packageName:"...","productId":"...","purchaseState":"...","purchaseToken":"..."}```
 - ```signature``` - (Android only)
@@ -84,9 +83,9 @@ ___Example:___
       console.log(data);
       /*
         {
-          productId: ...
           transactionId: ...
           receipt: ...
+          signature: ...
         }
       */
     })
