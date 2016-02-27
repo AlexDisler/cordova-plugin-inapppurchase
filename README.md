@@ -2,24 +2,24 @@
 
 A lightweight cordova plugin for in app purchases on iOS/Android.
 
-Features:
+# Features:
 
 - Simple, promise-based API
 - Support for consumable/non-consumable products and paid/free subscriptions
 - Support for restoring purchases
 - Uses well tested native libraries internally - [RMStore](https://github.com/robotmedia/RMStore) for iOS and an adjusted  [com.google.payments](https://github.com/MobileChromeApps/cordova-plugin-google-payments/tree/master/src/android) for Android
 
-## Install
+# Install
 
     $ cordova plugin add cordova-plugin-inapppurchase
 
-## Configuration
+# Configuration
 
-### iOS
+## iOS
 
 No configuration is necessary.
 
-### Android
+## Android
 
 You must create a ```manifest.json``` in your project's ```www``` folder with your Android Billing Key:
 
@@ -27,11 +27,11 @@ You must create a ```manifest.json``` in your project's ```www``` folder with yo
 
 You can get this key from the Google Play Store (under "Services & APIs") after uploading your app.
 
-## API
+# API
 
 All functions return a Promise
 
-### #getProducts()
+## #getProducts()
 
 Retrieves a list of full product data from Apple/Google. This method must be called before any purchases are attempted.
 
@@ -62,7 +62,7 @@ ___Example:___
     });
 ```
 
-### #buy()
+## #buy()
 
 ***inAppPurchase.buy(productId)***
 
@@ -94,7 +94,7 @@ Example:
     });
 ```
 
-### #consume()
+## #consume()
 
 ***inAppPurchase.consume(receipt)***
 
@@ -127,7 +127,7 @@ Example:
     });
 ```
 
-### #restorePurchases()
+## #restorePurchases()
 
 ***inAppPurchase.restorePurchases()***
 
@@ -160,17 +160,17 @@ Example:
     });
 ```
 
-## Developing
+# Developing
 
-### build:
+## build:
 
     $ gulp watch
 
-### run tests:
+## run tests:
 
     $ npm test
 
-## License
+# License
 
 The MIT License
 
