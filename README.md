@@ -164,19 +164,34 @@ Example:
 
 ## Developing
 
-### build:
+### Build:
 
+    $ npm install
     $ gulp watch
 
-### run tests:
+### Run tests:
 
     $ npm test
+
+## Thanks / Credits
+
+- [Adar Porat](https://github.com/aporat)
+- [Robot Media](https://github.com/robotmedia)
+- [MobileChromeApps](https://github.com/MobileChromeApps)
+
+## More
+
+- [cordova-icon](https://github.com/AlexDisler/cordova-icon) - automatic icon resizing for Cordova
+- [ng-special-offer](https://github.com/AlexDisler/ng-special-offer) - prompt users to rate your cordova app in the app store
+- [ionic-lock-screen](https://github.com/AlexDisler/ionic-lock-screen) - passcode lock screen for ionic (with touch id support for iOS)
+- [ionic-zoom-view](https://github.com/AlexDisler/ionic-zoom-view) - an easy way to add a zoom view to images using an ionic modal
+- [ng-persist](https://github.com/AlexDisler/ng-persist) - store data on mobile devices (using cordova) that persists even if the user reinstalls the app
 
 ## License
 
 The MIT License
 
-Alex Disler (alexdisler.com) 2016
+Alex Disler
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
