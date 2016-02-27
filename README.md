@@ -70,7 +70,7 @@ If successful, the promise resolves to an object with the following attributes t
 
 - ```transactionId``` - the transaction/order id
 - ```receipt``` - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation such as ```{"orderId":"...","packageName:"...","productId":"...","purchaseState":"...","purchaseToken":"..."}```
-- ```signature``` - (Android only)
+- ```signature```
 
 ***Receipt validation:*** - To validate your receipt, you will need the ```receipt``` and ```signature``` on Android and the ```receipt``` and ```transactionId``` on iOS.
 
@@ -132,8 +132,8 @@ If successful, the promise resolves to an object with the following attributes:
 - ```productId```
 - ```state``` - the state of the product. On ***Android*** the statuses are: ```0 - ACTIVE, 1 - CANCELLED,  2 - REFUNDED)```
 - ```date``` - timestamp of the purchase
-- ```transactionId``` - (iOS only)
 - ```packageName``` - the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
+- ```transactionId```
 
 Example:
 
