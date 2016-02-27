@@ -251,19 +251,21 @@ describe('Android purchases', () => {
     });
 
     it('should return an array of objects with the correct attributes', async (done) => {
-      const sku = 'com.test.prod1';
-      const purchaseState = 'REFUNDED';
-      const purchaseTime = new Date();
-      const packageName = 'com.test';
+      const productId = 'com.test.prod1';
+      const state = 0;
+      const date = new Date();
+      const token = '_some_purchase_token_';
+      const type = 'inapp';
       try {
         GLOBAL.window.cordova.exec = (success) => {
-          success([{ sku, packageName, purchaseState, purchaseTime }]);
+          success([{ productId, state, date, token, type }]);
         };
         const res = await inAppPurchase.restorePurchases();
-        assert(res[0].productId === sku);
-        assert(res[0].packageName === packageName);
-        assert(res[0].state === purchaseState);
-        assert(res[0].date === purchaseTime);
+        assert(res[0].productId === productId);
+        assert(res[0].state === state);
+        assert(res[0].date === date);
+        assert(res[0].token === token);
+        assert(res[0].type === type);
         done();
       } catch (err) {
         done(err);
