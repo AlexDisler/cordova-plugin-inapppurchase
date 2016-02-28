@@ -107,14 +107,17 @@ inAppPurchase.consume = function (transactionId) {
 
 inAppPurchase.restorePurchases = function () {
   return nativeCall('restorePurchases').then(function (purchases) {
-    var arr = purchases.map(function (val) {
-      return {
-        productId: val.productId,
-        state: val.transactionState,
-        date: val.date,
-        transactionId: val.transactionId };
-    });
-    // <- iOS only
+    var arr = [];
+    if (purchases) {
+      arr = purchases.map(function (val) {
+        return {
+          productId: val.productId,
+          date: val.date,
+          transactionId: val.transactionId,
+          state: val.transactionState
+        };
+      });
+    }
     return arr;
   });
 };
