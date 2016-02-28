@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-inapppurchase",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A lightweight cordova plugin for in app purchases on iOS and Android with a simple promise based API.",
   "main": "www/index-ios.js",
   "scripts": {
