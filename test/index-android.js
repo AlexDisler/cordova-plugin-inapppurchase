@@ -212,18 +212,22 @@ describe('Android purchases', () => {
 
   describe('#consume()', () => {
 
-    it('should call the Android buy() function with the correct args ', async (done) => {
+    it('should call the Android consume() function with the correct args ', async (done) => {
       try {
-        const receipt = '_some_purchase_token_';
+        const receipt = '_some_receipt_';
+        const signature = '_some_signature_';
+        const type = 'inapp';
         GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
           assert(typeof success === 'function', 'should define a success callback');
           assert(typeof err === 'function', 'should define an error callback');
           assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
           assert(name === 'consumePurchase', 'invalid function name');
-          assert(args[0] === receipt, 'should get receipt as args');
+          assert(args[0] === type, 'should get type as args 1');
+          assert(args[1] === receipt, 'should get receipt as args 2');
+          assert(args[2] === signature, 'should get signature as arg 3');
           success({});
         };
-        await inAppPurchase.consume(receipt);
+        await inAppPurchase.consume(type, receipt, signature);
         done();
       } catch (err) {
         done(err);
@@ -254,17 +258,15 @@ describe('Android purchases', () => {
       const productId = 'com.test.prod1';
       const state = 0;
       const date = new Date();
-      const token = '_some_purchase_token_';
       const type = 'inapp';
       try {
         GLOBAL.window.cordova.exec = (success) => {
-          success([{ productId, state, date, token, type }]);
+          success([{ productId, state, date, type }]);
         };
         const res = await inAppPurchase.restorePurchases();
         assert(res[0].productId === productId);
         assert(res[0].state === state);
         assert(res[0].date === date);
-        assert(res[0].token === token);
         assert(res[0].type === type);
         done();
       } catch (err) {

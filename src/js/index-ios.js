@@ -64,10 +64,14 @@ inAppPurchase.buy = (productId) => {
  * where this function is required.
  * See README for more details.
  */
-inAppPurchase.consume = (transactionId) => {
+inAppPurchase.consume = (type, receipt, signature) => {
   return new Promise((resolve, reject) => {
-    if(!inAppPurchase.utils.validString(transactionId)) {
-      reject(new Error(inAppPurchase.utils.errors[102]));
+    if(!inAppPurchase.utils.validString(type)) {
+      reject(new Error(inAppPurchase.utils.errors[103]));
+    } else if (!inAppPurchase.utils.validString(receipt)) {
+      reject(new Error(inAppPurchase.utils.errors[104]));
+    } else if (!inAppPurchase.utils.validString(signature)) {
+      reject(new Error(inAppPurchase.utils.errors[105]));
     } else {
       resolve();
     }

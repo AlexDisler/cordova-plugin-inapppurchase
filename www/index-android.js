@@ -13,7 +13,10 @@ var utils = {};
 
 utils.errors = {
   101: 'invalid argument - productIds must be an array of strings',
-  102: 'invalid argument - productId must be a string'
+  102: 'invalid argument - productId must be a string',
+  103: 'invalid argument - product type must be a string',
+  104: 'invalid argument - receipt must be a string of a json',
+  105: 'invalid argument - signature must be a string'
 };
 
 utils.validArrayOfStrings = function (val) {
@@ -79,9 +82,10 @@ inAppPurchase.buy = function (productId) {
     } else {
       nativeCall('buy', [productId]).then(function (res) {
         resolve({
-          signature: res.signature, // <- Android only
+          signature: res.signature,
           productId: res.productId,
           transactionId: res.purchaseToken,
+          type: res.type,
           receipt: JSON.stringify({
             orderId: res.orderId,
             packageName: res.packageName,
@@ -96,12 +100,16 @@ inAppPurchase.buy = function (productId) {
   });
 };
 
-inAppPurchase.consume = function (transactionId) {
+inAppPurchase.consume = function (type, receipt, signature) {
   return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(transactionId)) {
-      reject(new Error(inAppPurchase.utils.errors[102]));
+    if (!inAppPurchase.utils.validString(type)) {
+      reject(new Error(inAppPurchase.utils.errors[103]));
+    } else if (!inAppPurchase.utils.validString(receipt)) {
+      reject(new Error(inAppPurchase.utils.errors[104]));
+    } else if (!inAppPurchase.utils.validString(signature)) {
+      reject(new Error(inAppPurchase.utils.errors[105]));
     } else {
-      nativeCall('consumePurchase', [transactionId]).then(resolve).catch(reject);
+      nativeCall('consumePurchase', [type, receipt, signature]).then(resolve).catch(reject);
     }
   });
 };
@@ -114,12 +122,21 @@ inAppPurchase.restorePurchases = function () {
         return {
           productId: val.productId,
           state: val.state,
+          transactionId: val.orderId,
           date: val.date,
-          token: val.token, // <- Android only
-          type: val.type };
+          type: val.type,
+          signature: val.signature,
+          receipt: JSON.stringify({
+            orderId: val.orderId,
+            packageName: val.packageName,
+            productId: val.productId,
+            purchaseTime: val.purchaseTime,
+            purchaseState: val.purchaseState,
+            purchaseToken: val.purchaseToken
+          })
+        };
       });
     }
-    // <- Android only
     return arr;
   });
 };

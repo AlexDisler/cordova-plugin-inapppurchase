@@ -170,8 +170,10 @@ describe('iOS purchases', () => {
 
     it('should always successfully resolve without doing anything', async (done) => {
       try {
+        const signature = '_some_signature_';
         const receipt = '_some_receipt_';
-        await inAppPurchase.consume(receipt);
+        const type = 'inapp';
+        await inAppPurchase.consume(type, receipt, signature);
         done();
       } catch (err) {
         done(err);

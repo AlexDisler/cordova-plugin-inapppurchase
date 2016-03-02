@@ -59,8 +59,6 @@ public class InAppBillingV3 extends CordovaPlugin {
   boolean billingInitialized = false;
   AtomicInteger orderSerial = new AtomicInteger(0);
 
-  private HashMap<String, Purchase> purchaseMap = new HashMap<String, Purchase>();
-
   private JSONObject manifestObject = null;
 
   private JSONObject getManifestContents() {
@@ -234,7 +232,6 @@ public class InAppBillingV3 extends CordovaPlugin {
                 callbackContext.error(makeError("Error completing purchase: " + response, UNKNOWN_ERROR, result));
               }
             } else {
-              purchaseMap.put(purchase.getToken(), purchase);
               try {
                 JSONObject pluginResponse = new JSONObject();
                 pluginResponse.put("orderId", purchase.getOrderId());
@@ -244,6 +241,7 @@ public class InAppBillingV3 extends CordovaPlugin {
                 pluginResponse.put("purchaseState", purchase.getPurchaseState());
                 pluginResponse.put("purchaseToken", purchase.getToken());
                 pluginResponse.put("signature", purchase.getSignature());
+                pluginResponse.put("type", purchase.getItemType());
                 callbackContext.success(pluginResponse);
               } catch (JSONException e) {
                 callbackContext.error("Purchase succeeded but success handler failed");
@@ -254,15 +252,13 @@ public class InAppBillingV3 extends CordovaPlugin {
     return true;
   }
 
-  protected Purchase getPurchase(String purchaseToken) {
-    return purchaseMap.get(purchaseToken);
-  }
-
   protected boolean consumePurchase(final JSONArray args, final CallbackContext callbackContext) {
     final Purchase purchase;
     try {
-      String purchaseToken = args.getString(0);
-      purchase = getPurchase(purchaseToken);
+      String type = args.getString(0);
+      String receipt = args.getString(1);
+      String signature = args.getString(2);
+      purchase = new Purchase(type, receipt, signature);
     } catch (JSONException e) {
       callbackContext.error(makeError("Unable to parse purchase token", INVALID_ARGUMENTS));
       return false;
@@ -278,7 +274,6 @@ public class InAppBillingV3 extends CordovaPlugin {
     iabHelper.consumeAsync(purchase, new OnConsumeFinishedListener() {
       public void onConsumeFinished(Purchase purchase, IabResult result) {
         if (result.isFailure()) {
-          // TODO: Add way more info to this
           int response = result.getResponse();
           if (response == IabHelper.BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED) {
             callbackContext.error(makeError("Error consuming purchase", ITEM_NOT_OWNED, result));
@@ -360,10 +355,13 @@ public class InAppBillingV3 extends CordovaPlugin {
             for (Purchase purchase : inventory.getAllPurchases()) {
               if (purchase != null) {
                 JSONObject detailsJson = new JSONObject();
+                detailsJson.put("orderId", purchase.getOrderId());
+                detailsJson.put("packageName", purchase.getPackageName());
                 detailsJson.put("productId", purchase.getSku());
-                detailsJson.put("state", purchase.getPurchaseState());
-                detailsJson.put("date", purchase.getPurchaseTime());
-                detailsJson.put("token", purchase.getToken());
+                detailsJson.put("purchaseTime", purchase.getPurchaseTime());
+                detailsJson.put("purchaseState", purchase.getPurchaseState());
+                detailsJson.put("purchaseToken", purchase.getToken());
+                detailsJson.put("signature", purchase.getSignature());
                 detailsJson.put("type", purchase.getItemType());
                 response.put(detailsJson);
               }

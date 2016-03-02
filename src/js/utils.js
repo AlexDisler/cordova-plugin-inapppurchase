@@ -12,6 +12,9 @@ const utils = {};
 utils.errors = {
   101: 'invalid argument - productIds must be an array of strings',
   102: 'invalid argument - productId must be a string',
+  103: 'invalid argument - product type must be a string',
+  104: 'invalid argument - receipt must be a string of a json',
+  105: 'invalid argument - signature must be a string',
 };
 
 utils.validArrayOfStrings = (val) => {

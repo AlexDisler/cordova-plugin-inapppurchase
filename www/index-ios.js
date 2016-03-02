@@ -13,7 +13,10 @@ var utils = {};
 
 utils.errors = {
   101: 'invalid argument - productIds must be an array of strings',
-  102: 'invalid argument - productId must be a string'
+  102: 'invalid argument - productId must be a string',
+  103: 'invalid argument - product type must be a string',
+  104: 'invalid argument - receipt must be a string of a json',
+  105: 'invalid argument - signature must be a string'
 };
 
 utils.validArrayOfStrings = function (val) {
@@ -95,10 +98,14 @@ inAppPurchase.buy = function (productId) {
  * where this function is required.
  * See README for more details.
  */
-inAppPurchase.consume = function (transactionId) {
+inAppPurchase.consume = function (type, receipt, signature) {
   return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(transactionId)) {
-      reject(new Error(inAppPurchase.utils.errors[102]));
+    if (!inAppPurchase.utils.validString(type)) {
+      reject(new Error(inAppPurchase.utils.errors[103]));
+    } else if (!inAppPurchase.utils.validString(receipt)) {
+      reject(new Error(inAppPurchase.utils.errors[104]));
+    } else if (!inAppPurchase.utils.validString(signature)) {
+      reject(new Error(inAppPurchase.utils.errors[105]));
     } else {
       resolve();
     }

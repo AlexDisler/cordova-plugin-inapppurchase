@@ -69,9 +69,10 @@ ___Example:___
 
 If successful, the promise resolves to an object with the following attributes that you will need for the receipt validation:
 
-- ```transactionId``` - the transaction/order id
-- ```receipt``` - on ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation such as ```{"orderId":"...","packageName:"...","productId":"...","purchaseState":"...","purchaseToken":"..."}```
-- ```signature```
+- ```transactionId``` - The transaction/order id
+- ```receipt``` - On ***iOS*** it will be the base64 string of the receipt, on ***Android*** it will be a string of a json with all the transaction details required for validation such as ```{"orderId":"...","packageName:"...","productId":"...","purchaseTime":"...", "purchaseState":"...","purchaseToken":"..."}```
+- ```signature``` - On Android it can be used to [consume](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaseconsumetransactionid) a purchase. On iOS it will be an empty string.
+- ```productType``` - On Android it can be used to [consume](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaseconsumetransactionid) a purchase. On iOS it will be an empty string.
 
 ***Receipt validation:*** - To validate your receipt, you will need the ```receipt``` and ```signature``` on Android and the ```receipt``` and ```transactionId``` on iOS.
 
@@ -95,15 +96,19 @@ ___Example:___
     });
 ```
 
-### inAppPurchase.consume(transactionId)
+### inAppPurchase.consume(productType, receipt, signature)
 
-- ___transactionId___ - transaction / order id returned by the buy() function above
+- ___productType___ - string
+- ___receipt___ - string (containing a json)
+- ___signature___ - string
+
+All 3 parameters are returned by the [buy()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchasebuyproductid) or [restorePurchases()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaserestorepurchases) functions.
 
 Call this function after purchasing a "consumable" product to mark it as consumed.
 
 ___NOTE: This function is only relevant to Android purchases.___
 
-On ***Android***, you must consume products of type ```CONSUMABLE```. If you will not consume the product after a purchase, the next time you will attempt to purchase this product you will get the error message:
+On ***Android***, you must consume subscriptions and products that are consumable. If you will not consume the product/subscription after a purchase, the next time you will attempt to purchase it you will get the error message:
 ```Unable to buy item / Item already owned```.
 
 On ***iOS*** there is no need to "consume" a product. However, in order to make your code cross platform, it is recommended to call it for iOS consumable purchases as well.
@@ -116,7 +121,7 @@ ___Example:___
     .buy('com.yourapp.consumable_prod1')
     .then(function (data) {
       // ...then mark it as consumed:
-      return inAppPurchase.consume(data.transactionId);
+      return inAppPurchase.consume(data.productType, data.receipt, data.signature);
     })
     .then(function (data) {
       console.log('product was successfully consumed!');
@@ -132,9 +137,11 @@ If successful, the promise resolves to an object with the following attributes:
 
 - ```productId```
 - ```state``` - the state of the product. On ***Android*** the statuses are: ```0 - ACTIVE, 1 - CANCELLED,  2 - REFUNDED)```
-- ```date``` - timestamp of the purchase
-- ```packageName``` - the package name / bundle id of your app (such as 'com.yourcompany.yourapp')
 - ```transactionId```
+- ```date``` - timestamp of the purchase
+- ```productType``` - On Android it can be used to [consume](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaseconsumetransactionid) a purchase. On iOS it will be an empty string.
+- ```receipt``` - On Android it can be used to [consume](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaseconsumetransactionid) a purchase. On iOS it will be an empty string.
+- ```signature``` - On Android it can be used to [consume](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaseconsumetransactionid) a purchase. On iOS it will be an empty string.
 
 ___Example:___
 
