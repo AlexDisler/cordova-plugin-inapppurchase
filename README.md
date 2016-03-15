@@ -123,7 +123,7 @@ ___Example:___
       // ...then mark it as consumed:
       return inAppPurchase.consume(data.productType, data.receipt, data.signature);
     })
-    .then(function (data) {
+    .then(function () {
       console.log('product was successfully consumed!');
     })
     .catch(function (err) {
