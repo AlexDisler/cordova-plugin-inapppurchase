@@ -152,10 +152,9 @@ describe('iOS purchases', () => {
         const transactionId = '111111111';
         const receipt = '222222222';
         GLOBAL.window.cordova.exec = (success) => {
-          success({ productId, transactionId, receipt });
+          success({ transactionId, receipt });
         };
         const res = await inAppPurchase.buy(productId);
-        assert(res.productId === productId);
         assert(res.transactionId === transactionId);
         assert(res.receipt === receipt);
         done();

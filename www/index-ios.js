@@ -84,7 +84,6 @@ inAppPurchase.buy = function (productId) {
     } else {
       nativeCall('buy', [productId]).then(function (res) {
         resolve({
-          productId: res.productId,
           transactionId: res.transactionId,
           receipt: res.receipt
         });

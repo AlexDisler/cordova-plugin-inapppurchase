@@ -70,7 +70,6 @@
     NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{
                                                                                                                    @"transactionId": NILABLE(transaction.transactionIdentifier),
-                                                                                                                   @"productId": NILABLE(transaction.payment.productIdentifier),
                                                                                                                    @"receipt": NILABLE(encReceipt)
                                                                                                                    }];
     [pluginResult setKeepCallbackAsBool:YES];
