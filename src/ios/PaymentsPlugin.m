@@ -90,10 +90,15 @@
   [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
     NSMutableArray *validTransactions = [NSMutableArray array];
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
     for (SKPaymentTransaction *transaction in transactions) {
+      NSString *transactionDateString = [formatter stringFromDate:transaction.transactionDate];
       [validTransactions addObject:@{
                                  @"productId": NILABLE(transaction.payment.productIdentifier),
-                                 /* @"date": NILABLE(transaction.transactionDate), */
+                                 @"date": NILABLE(transactionDateString),
                                  @"transactionId": NILABLE(transaction.transactionIdentifier),
                                  @"transactionState": NILABLE([NSNumber numberWithInteger:transaction.transactionState])
                                  }];
