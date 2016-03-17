@@ -82,30 +82,34 @@ inAppPurchase.consume = (type, receipt, signature) => {
 };
 
 inAppPurchase.restorePurchases = () => {
-  return nativeCall('restorePurchases', []).then((purchases) => {
-    let arr = [];
-    if (purchases) {
-      arr = purchases.map((val) => {
-        return {
-          productId: val.productId,
-          state : val.state,
-          transactionId: val.orderId,
-          date : val.date,
-          type : val.type,
-          signature: val.signature,
-          receipt : JSON.stringify({
-            orderId: val.orderId,
-            packageName: val.packageName,
+  return nativeCall('init', [])
+    .then(() => {
+      return nativeCall('restorePurchases', []);
+    })
+    .then((purchases) => {
+      let arr = [];
+      if (purchases) {
+        arr = purchases.map((val) => {
+          return {
             productId: val.productId,
-            purchaseTime: val.purchaseTime,
-            purchaseState: val.purchaseState,
-            purchaseToken: val.purchaseToken,
-          }),
-        };
-      });
-    }
-    return arr;
-  });
+            state : val.state,
+            transactionId: val.orderId,
+            date : val.date,
+            type : val.type,
+            signature: val.signature,
+            receipt : JSON.stringify({
+              orderId: val.orderId,
+              packageName: val.packageName,
+              productId: val.productId,
+              purchaseTime: val.purchaseTime,
+              purchaseState: val.purchaseState,
+              purchaseToken: val.purchaseToken,
+            }),
+          };
+        });
+      }
+      return Promise.resolve(arr);
+    });
 };
 
 module.exports = inAppPurchase;

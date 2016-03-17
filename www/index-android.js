@@ -115,7 +115,9 @@ inAppPurchase.consume = function (type, receipt, signature) {
 };
 
 inAppPurchase.restorePurchases = function () {
-  return nativeCall('restorePurchases', []).then(function (purchases) {
+  return nativeCall('init', []).then(function () {
+    return nativeCall('restorePurchases', []);
+  }).then(function (purchases) {
     var arr = [];
     if (purchases) {
       arr = purchases.map(function (val) {
@@ -137,7 +139,7 @@ inAppPurchase.restorePurchases = function () {
         };
       });
     }
-    return arr;
+    return Promise.resolve(arr);
   });
 };
 

@@ -38,7 +38,7 @@ All functions return a Promise.
 
 - ___productIds___ - an array of product ids
 
-Retrieves a list of full product data from Apple/Google. **This function must be called before making or restoring purchases.**
+Retrieves a list of full product data from Apple/Google. **This function must be called before making purchases.**
 
 If successful, the promise resolves to an array of objects. Each object has the following attributes:
 

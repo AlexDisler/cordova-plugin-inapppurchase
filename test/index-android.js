@@ -238,14 +238,40 @@ describe('Android purchases', () => {
 
   describe('#restorePurchases()', () => {
 
+    it('should initialize the Android plugin', async (done) => {
+      try {
+        let initCalled = false;
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
+          if (name === 'init') {
+            assert(typeof success === 'function', 'should define a success callback');
+            assert(typeof err === 'function', 'should define an error callback');
+            assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
+            assert(args.length === 0, 'args should be empty');
+            initCalled = true;
+            success();
+          } else if (name === 'restorePurchases') {
+            success([]);
+          }
+        };
+        await inAppPurchase.restorePurchases();
+        assert(initCalled, 'init() should be called');
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
     it('should call the Android restorePurchases() function with the correct args ', async (done) => {
       try {
         GLOBAL.window.cordova.exec = (success, err, pluginName, name) => {
-          assert(typeof success === 'function', 'should define a success callback');
-          assert(typeof err === 'function', 'should define an error callback');
-          assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
-          assert(name === 'restorePurchases', 'invalid function name');
-          success([{}]);
+          if (name === 'restorePurchases') {
+            assert(typeof success === 'function', 'should define a success callback');
+            assert(typeof err === 'function', 'should define an error callback');
+            assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
+            success([{}]);
+          } else if (name === 'init') {
+            success();
+          }
         };
         await inAppPurchase.restorePurchases();
         done();
@@ -260,8 +286,12 @@ describe('Android purchases', () => {
       const date = new Date();
       const type = 'inapp';
       try {
-        GLOBAL.window.cordova.exec = (success) => {
-          success([{ productId, state, date, type }]);
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name) => {
+          if (name === 'restorePurchases') {
+            success([{ productId, state, date, type }]);
+          } else if (name === 'init') {
+            success();
+          }
         };
         const res = await inAppPurchase.restorePurchases();
         assert(res[0].productId === productId);
