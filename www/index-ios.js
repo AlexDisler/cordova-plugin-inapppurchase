@@ -97,25 +97,15 @@ inAppPurchase.buy = function (productId) {
  * where this function is required.
  * See README for more details.
  */
-inAppPurchase.consume = function (type, receipt, signature) {
-  return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(type)) {
-      reject(new Error(inAppPurchase.utils.errors[103]));
-    } else if (!inAppPurchase.utils.validString(receipt)) {
-      reject(new Error(inAppPurchase.utils.errors[104]));
-    } else if (!inAppPurchase.utils.validString(signature)) {
-      reject(new Error(inAppPurchase.utils.errors[105]));
-    } else {
-      resolve();
-    }
-  });
+inAppPurchase.consume = function () {
+  return Promise.resolve();
 };
 
 inAppPurchase.restorePurchases = function () {
-  return nativeCall('restorePurchases').then(function (purchases) {
+  return nativeCall('restorePurchases').then(function (res) {
     var arr = [];
-    if (purchases) {
-      arr = purchases.map(function (val) {
+    if (res && res.transactions) {
+      arr = res.transactions.map(function (val) {
         return {
           productId: val.productId,
           date: val.date,

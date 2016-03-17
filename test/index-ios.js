@@ -169,10 +169,7 @@ describe('iOS purchases', () => {
 
     it('should always successfully resolve without doing anything', async (done) => {
       try {
-        const signature = '_some_signature_';
-        const receipt = '_some_receipt_';
-        const type = 'inapp';
-        await inAppPurchase.consume(type, receipt, signature);
+        await inAppPurchase.consume();
         done();
       } catch (err) {
         done(err);
@@ -206,7 +203,7 @@ describe('iOS purchases', () => {
       const date = new Date();
       try {
         GLOBAL.window.cordova.exec = (success) => {
-          success([{ transactionId, productId, transactionState, date }]);
+          success({ transactions : [{ transactionId, productId, transactionState, date }]});
         };
         const res = await inAppPurchase.restorePurchases();
         assert(res[0].transactionId === transactionId);

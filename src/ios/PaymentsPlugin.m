@@ -93,7 +93,7 @@
     for (SKPaymentTransaction *transaction in transactions) {
       [validTransactions addObject:@{
                                  @"productId": NILABLE(transaction.payment.productIdentifier),
-                                 @"date": NILABLE(transaction.transactionDate),
+                                 /* @"date": NILABLE(transaction.transactionDate), */
                                  @"transactionId": NILABLE(transaction.transactionIdentifier),
                                  @"transactionState": NILABLE([NSNumber numberWithInteger:transaction.transactionState])
                                  }];
