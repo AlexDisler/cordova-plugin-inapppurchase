@@ -34,7 +34,9 @@ You can get this key from the Google Play Store (under "Services & APIs") after 
 
 All functions return a Promise.
 
-### inAppPurchase.getProducts(productIds)
+### Get Products
+
+#### inAppPurchase.getProducts(productIds)
 
 - ___productIds___ - an array of product ids
 
@@ -63,7 +65,9 @@ ___Example:___
     });
 ```
 
-### inAppPurchase.buy(productId)
+### Buy
+
+#### inAppPurchase.buy(productId)
 
 - ___productId___ - a string of the productId
 
@@ -96,7 +100,9 @@ ___Example:___
     });
 ```
 
-### inAppPurchase.consume(productType, receipt, signature)
+### Consume
+
+#### inAppPurchase.consume(productType, receipt, signature)
 
 - ___productType___ - string
 - ___receipt___ - string (containing a json)
@@ -131,7 +137,9 @@ ___Example:___
     });
 ```
 
-### inAppPurchase.restorePurchases()
+### Restore Purchases
+
+#### inAppPurchase.restorePurchases()
 
 If successful, the promise resolves to an object with the following attributes:
 
@@ -191,7 +199,7 @@ Coverage report:
 
 ## More
 
-- [cordova-icon](https://github.com/AlexDisler/cordova-icon) - automatic icon resizing for Cordova
+- [cordova-icon](https://github.com/AlexDisler/cordova-icon) - automatic icon resizing for cordova
 - [ng-special-offer](https://github.com/AlexDisler/ng-special-offer) - prompt users to rate your cordova app in the app store
 - [ionic-lock-screen](https://github.com/AlexDisler/ionic-lock-screen) - passcode lock screen for ionic (with touch id support for iOS)
 - [ionic-zoom-view](https://github.com/AlexDisler/ionic-zoom-view) - an easy way to add a zoom view to images using an ionic modal
