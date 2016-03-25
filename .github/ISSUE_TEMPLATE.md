@@ -1,11 +1,13 @@
 Please include:
 
-- Your code / steps to reproduce
+### Your code / steps to reproduce
+```js
 
-- Console output
+```
+### Console output
 
-- Type of product you are working with consumable/non-consumable/subscription
+### Type of product you are working with consumable/non-consumable/subscription
 
-- Version of cordova
+### Version of cordova
 
-- Version of iOS/Android
+### Version of iOS/Android
