@@ -46,7 +46,7 @@ var executePaymentOfType = (resolve, reject, productId, type) => {
     if (!inAppPurchase.utils.validString(productId)) {
       reject(new Error(inAppPurchase.utils.errors[102]));
     } else {
-      nativeCall(type, [productId]).then(function (res) {
+      nativeCall(type, [productId]).then((res) => {
         resolve({
           signature: res.signature,
           productId: res.productId,
