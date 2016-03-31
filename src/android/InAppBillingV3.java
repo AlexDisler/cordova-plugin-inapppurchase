@@ -14,7 +14,6 @@ package com.google.payments;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -163,6 +162,8 @@ public class InAppBillingV3 extends CordovaPlugin {
       return init(args, callbackContext);
     } else if ("buy".equals(action)) {
       return buy(args, callbackContext);
+    } else if ("subscribe".equals(action)) {
+      return subscribe(args, callbackContext);
     } else if ("consumePurchase".equals(action)) {
       return consumePurchase(args, callbackContext);
     } else if ("getSkuDetails".equals(action)) {
@@ -195,7 +196,7 @@ public class InAppBillingV3 extends CordovaPlugin {
     return true;
   }
 
-  protected boolean buy(final JSONArray args, final CallbackContext callbackContext) {
+  protected boolean runPayment(final JSONArray args, final CallbackContext callbackContext, boolean subscribe) {
     final String sku;
     try {
       sku = args.getString(0);
@@ -210,46 +211,54 @@ public class InAppBillingV3 extends CordovaPlugin {
     final Activity cordovaActivity = this.cordova.getActivity();
     int newOrder = orderSerial.getAndIncrement();
     this.cordova.setActivityResultCallback(this);
-    iabHelper.launchPurchaseFlow(cordovaActivity, sku, newOrder, 
-        new IabHelper.OnIabPurchaseFinishedListener() {
-          public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            if (result.isFailure()) {
-              // TODO: Add way more info to this
-              int response = result.getResponse();
-              if (response == IabHelper.IABHELPER_BAD_RESPONSE || response == IabHelper.IABHELPER_UNKNOWN_ERROR) {
-                callbackContext.error(makeError("Could not complete purchase", BAD_RESPONSE_FROM_SERVER, result));
-              }
-              else if (response == IabHelper.IABHELPER_VERIFICATION_FAILED) {
-                callbackContext.error(makeError("Could not complete purchase", BAD_RESPONSE_FROM_SERVER, result));
-              }
-              else if (response == IabHelper.IABHELPER_USER_CANCELLED) {
-                callbackContext.error(makeError("Purchase Cancelled", USER_CANCELLED, result));
-              }
-              else if (response == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
-                callbackContext.error(makeError("Item already owned", ITEM_ALREADY_OWNED, result));
-              }
-              else {
-                callbackContext.error(makeError("Error completing purchase: " + response, UNKNOWN_ERROR, result));
-              }
-            } else {
-              try {
-                JSONObject pluginResponse = new JSONObject();
-                pluginResponse.put("orderId", purchase.getOrderId());
-                pluginResponse.put("packageName", purchase.getPackageName());
-                pluginResponse.put("productId", purchase.getSku());
-                pluginResponse.put("purchaseTime", purchase.getPurchaseTime());
-                pluginResponse.put("purchaseState", purchase.getPurchaseState());
-                pluginResponse.put("purchaseToken", purchase.getToken());
-                pluginResponse.put("signature", purchase.getSignature());
-                pluginResponse.put("type", purchase.getItemType());
-                callbackContext.success(pluginResponse);
-              } catch (JSONException e) {
-                callbackContext.error("Purchase succeeded but success handler failed");
-              }
-            }
+
+
+    IabHelper.OnIabPurchaseFinishedListener oipfl = new IabHelper.OnIabPurchaseFinishedListener() {
+      public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+        if (result.isFailure()) {
+          // TODO: Add way more info to this
+          int response = result.getResponse();
+          if (response == IabHelper.IABHELPER_BAD_RESPONSE || response == IabHelper.IABHELPER_UNKNOWN_ERROR) {
+            callbackContext.error(makeError("Could not complete purchase", BAD_RESPONSE_FROM_SERVER, result));
+          } else if (response == IabHelper.IABHELPER_VERIFICATION_FAILED) {
+            callbackContext.error(makeError("Could not complete purchase", BAD_RESPONSE_FROM_SERVER, result));
+          } else if (response == IabHelper.IABHELPER_USER_CANCELLED) {
+            callbackContext.error(makeError("Purchase Cancelled", USER_CANCELLED, result));
+          } else if (response == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
+            callbackContext.error(makeError("Item already owned", ITEM_ALREADY_OWNED, result));
+          } else {
+            callbackContext.error(makeError("Error completing purchase: " + response, UNKNOWN_ERROR, result));
           }
-        }, "");
+        } else {
+          try {
+            JSONObject pluginResponse = new JSONObject();
+            pluginResponse.put("orderId", purchase.getOrderId());
+            pluginResponse.put("packageName", purchase.getPackageName());
+            pluginResponse.put("productId", purchase.getSku());
+            pluginResponse.put("purchaseTime", purchase.getPurchaseTime());
+            pluginResponse.put("purchaseState", purchase.getPurchaseState());
+            pluginResponse.put("purchaseToken", purchase.getToken());
+            pluginResponse.put("signature", purchase.getSignature());
+            pluginResponse.put("type", purchase.getItemType());
+            callbackContext.success(pluginResponse);
+          } catch (JSONException e) {
+            callbackContext.error("Purchase succeeded but success handler failed");
+          }
+        }
+      }
+    };
+    if(subscribe){
+      iabHelper.launchSubscriptionPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, "");
+    } else {
+      iabHelper.launchPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, "");
+    }
     return true;
+  }
+  protected boolean subscribe(final JSONArray args, final CallbackContext callbackContext) {
+    return runPayment(args, callbackContext, true);
+  }
+  protected boolean buy(final JSONArray args, final CallbackContext callbackContext) {
+    return runPayment(args, callbackContext, false);
   }
 
   protected boolean consumePurchase(final JSONArray args, final CallbackContext callbackContext) {
