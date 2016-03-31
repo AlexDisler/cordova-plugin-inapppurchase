@@ -53,6 +53,7 @@ inAppPurchase.buy = (productId) => {
           productId: res.productId,
           transactionId: res.purchaseToken,
           type : res.type,
+          productType : res.type,
           receipt : JSON.stringify({
             orderId: res.orderId,
             packageName: res.packageName,
@@ -96,6 +97,7 @@ inAppPurchase.restorePurchases = () => {
             transactionId: val.orderId,
             date : val.date,
             type : val.type,
+            productType : val.type,
             signature: val.signature,
             receipt : JSON.stringify({
               orderId: val.orderId,
