@@ -92,6 +92,10 @@ inAppPurchase.buy = function (productId) {
   });
 };
 
+inAppPurchase.subscribe = function (productId) {
+  return inAppPurchase.buy(productId);
+};
+
 /**
  * This function exists so that the iOS plugin API will be compatible with that of Android -
  * where this function is required.
