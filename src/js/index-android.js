@@ -51,8 +51,9 @@ var executePaymentOfType = (resolve, reject, productId, type) => {
           signature: res.signature,
           productId: res.productId,
           transactionId: res.purchaseToken,
-          type: res.type,
-          receipt: JSON.stringify({
+          type : res.type,
+          productType : res.type,
+          receipt : JSON.stringify({
             orderId: res.orderId,
             packageName: res.packageName,
             productId: res.productId,
@@ -107,6 +108,7 @@ inAppPurchase.restorePurchases = () => {
             transactionId: val.orderId,
             date : val.date,
             type : val.type,
+            productType : val.type,
             signature: val.signature,
             receipt : JSON.stringify({
               orderId: val.orderId,
