@@ -165,6 +165,22 @@ describe('iOS purchases', () => {
 
   });
 
+  //TODO: Uncomment and add chai-spies. (http://chaijs.com/plugins/chai-spies/)
+  // describe('#subscribe()',() =>{
+  //   it('should call buy method', async(done) =>{
+  //     try{
+  //       //TODO: add mocks here so we can test if subscribe calls buy method
+  //       spy = chai.spy.on(inAppPurchase, 'buy')
+  //       mock.expects(:buy)
+  //       inAppPurchase.subscribe();
+  //       expect(spy).to.have.been.called.exactly(3);
+  //       done();
+  //     } catch (err) {
+  //       done(err);
+  //     }
+  //   });
+  // });
+
   describe('#consume()', () => {
 
     it('should always successfully resolve without doing anything', async (done) => {

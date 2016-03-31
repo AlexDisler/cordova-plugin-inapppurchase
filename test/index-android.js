@@ -210,6 +210,29 @@ describe('Android purchases', () => {
 
   });
 
+  describe('#subscribe()', () => {
+
+    it('should call the Android subscribe() function with the correct args ', async (done) => {
+      try {
+        const productId = 'com.test.prod1';
+        const orderId = '_some_order_id_';
+        const purchaseToken = '_some_purchase_token_';
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
+          assert(typeof success === 'function', 'should define a success callback');
+          assert(typeof err === 'function', 'should define an error callback');
+          assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
+          assert(name === 'subscribe', 'invalid function name');
+          assert(args[0] === productId, 'should get productId as args');
+          success({ orderId, purchaseToken });
+        };
+        await inAppPurchase.subscribe(productId);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+  });
   describe('#consume()', () => {
 
     it('should call the Android consume() function with the correct args ', async (done) => {
