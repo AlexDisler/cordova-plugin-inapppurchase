@@ -184,7 +184,7 @@ ___Example:___
 
 #### inAppPurchase.getReceipt()
 
-On iOS, you can get the receipt at any moment by calling the getReceipt() function. Note that on iOS the receipt can contain multiple transactions. If successful, the promise returned by this function will resolve to a string with the receipt.
+On ***iOS***, you can get the receipt at any moment by calling the getReceipt() function. Note that on iOS the receipt can contain multiple transactions. If successful, the promise returned by this function will resolve to a string with the receipt.
 
 On ***Android*** this function will always return an empty string.
 
