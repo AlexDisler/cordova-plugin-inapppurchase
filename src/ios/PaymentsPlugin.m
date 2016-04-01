@@ -66,7 +66,6 @@
   [[RMStore defaultStore] addPayment:productId success:^(SKPaymentTransaction *transaction) {
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
-
     NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{
                                                                                                                    @"transactionId": NILABLE(transaction.transactionIdentifier),
@@ -105,6 +104,24 @@
     }
     [result setObject:validTransactions forKey:@"transactions"];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  } failure:^(NSError *error) {
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:@{
+                                                                                                                   @"errorCode": NILABLE([NSNumber numberWithInteger:error.code]),
+                                                                                                                   @"errorMessage": NILABLE(error.localizedDescription)
+                                                                                                                   }];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  }];
+}
+
+- (void)getReceipt:(CDVInvokedUrlCommand *)command {
+  [[RMStore defaultStore] refreshReceiptOnSuccess:^{
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+    NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{@"receipt": NILABLE(encReceipt) }];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   } failure:^(NSError *error) {

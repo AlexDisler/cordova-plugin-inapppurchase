@@ -63,7 +63,7 @@ const executePaymentOfType = (type, productId) => {
             purchaseToken: res.purchaseToken,
           }),
         });
-      }).catch(reject);;
+      }).catch(reject);
     }
   });
 };
@@ -120,6 +120,10 @@ inAppPurchase.restorePurchases = () => {
       }
       return Promise.resolve(arr);
     });
+};
+
+inAppPurchase.getReceipt = () => {
+  return Promise.resolve('');
 };
 
 module.exports = inAppPurchase;

@@ -110,6 +110,16 @@ inAppPurchase.consume = function () {
   return Promise.resolve();
 };
 
+inAppPurchase.getReceipt = function () {
+  return nativeCall('getReceipt').then(function (res) {
+    var receipt = '';
+    if (res && res.receipt) {
+      receipt = res.receipt;
+    }
+    return receipt;
+  });
+};
+
 inAppPurchase.restorePurchases = function () {
   return nativeCall('restorePurchases').then(function (res) {
     var arr = [];

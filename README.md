@@ -180,6 +180,27 @@ ___Example:___
     });
 ```
 
+### Get Receipt
+
+#### inAppPurchase.getReceipt()
+
+On iOS, you can get the receipt at any moment by calling the getReceipt() function. Note that on iOS the receipt can contain multiple transactions. If successful, the promise returned by this function will resolve to a string with the receipt.
+
+On ***Android*** this function will always return an empty string.
+
+___Example:___
+
+```js
+  inAppPurchase
+    .getReceipt()
+    .then(function (receipt) {
+      console.log(receipt);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+```
+
 ## Developing
 
 ### Build:

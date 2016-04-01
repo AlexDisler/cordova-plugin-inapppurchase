@@ -135,7 +135,7 @@ var executePaymentOfType = function executePaymentOfType(type, productId) {
             purchaseToken: res.purchaseToken
           })
         });
-      }).catch(reject);;
+      }).catch(reject);
     }
   });
 };
@@ -190,6 +190,10 @@ inAppPurchase.restorePurchases = function () {
     }
     return Promise.resolve(arr);
   });
+};
+
+inAppPurchase.getReceipt = function () {
+  return Promise.resolve('');
 };
 
 module.exports = inAppPurchase;

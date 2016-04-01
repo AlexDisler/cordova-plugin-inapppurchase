@@ -15,5 +15,6 @@
 - (void)getProducts:(CDVInvokedUrlCommand *)command;
 - (void)buy:(CDVInvokedUrlCommand *)command;
 - (void)restorePurchases:(CDVInvokedUrlCommand *)command;
+- (void)getReceipt:(CDVInvokedUrlCommand *)command;
 
 @end
