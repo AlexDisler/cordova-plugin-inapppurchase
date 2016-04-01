@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.google.payments;
+package com.alexdisler.inapppurchases;
 
 import org.json.JSONException;
 import org.json.JSONObject;

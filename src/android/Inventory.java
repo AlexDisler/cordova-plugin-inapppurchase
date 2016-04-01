@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.google.payments;
+package com.alexdisler.inapppurchases;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.google.payments;
+package com.alexdisler.inapppurchases;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

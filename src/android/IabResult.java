@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.google.payments;
+package com.alexdisler.inapppurchases;
 
 /**
  * Represents the result of an in-app billing operation.

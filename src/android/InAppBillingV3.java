@@ -9,7 +9,7 @@
  *
  */
 
-package com.google.payments;
+package com.alexdisler.inapppurchases;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
 
-import com.google.payments.IabHelper.OnConsumeFinishedListener;
+import com.alexdisler.inapppurchases.IabHelper.OnConsumeFinishedListener;
 
 import android.app.Activity;
 import android.content.Context;
