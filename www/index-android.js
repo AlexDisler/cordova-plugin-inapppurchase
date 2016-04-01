@@ -135,7 +135,7 @@ var executePaymentOfType = function executePaymentOfType(type, productId) {
             purchaseToken: res.purchaseToken
           })
         });
-      });
+      }).catch(reject);;
     }
   });
 };

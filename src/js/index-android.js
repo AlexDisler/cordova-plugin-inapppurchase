@@ -63,7 +63,7 @@ const executePaymentOfType = (type, productId) => {
             purchaseToken: res.purchaseToken,
           }),
         });
-      });
+      }).catch(reject);;
     }
   });
 };
