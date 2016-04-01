@@ -100,6 +100,14 @@ ___Example:___
     });
 ```
 
+### Subscribe
+
+#### inAppPurchase.subscribe(productId)
+
+- ___productId___ - a string of the productId
+
+This function behaves the same as ```buy()``` but with subscriptions.
+
 ### Consume
 
 #### inAppPurchase.consume(productType, receipt, signature)
