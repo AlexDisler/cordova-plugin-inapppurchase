@@ -233,6 +233,7 @@ describe('Android purchases', () => {
     });
 
   });
+
   describe('#consume()', () => {
 
     it('should call the Android consume() function with the correct args ', async (done) => {

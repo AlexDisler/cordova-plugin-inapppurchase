@@ -165,21 +165,29 @@ describe('iOS purchases', () => {
 
   });
 
-  //TODO: Uncomment and add chai-spies. (http://chaijs.com/plugins/chai-spies/)
-  // describe('#subscribe()',() =>{
-  //   it('should call buy method', async(done) =>{
-  //     try{
-  //       //TODO: add mocks here so we can test if subscribe calls buy method
-  //       spy = chai.spy.on(inAppPurchase, 'buy')
-  //       mock.expects(:buy)
-  //       inAppPurchase.subscribe();
-  //       expect(spy).to.have.been.called.exactly(3);
-  //       done();
-  //     } catch (err) {
-  //       done(err);
-  //     }
-  //   });
-  // });
+  describe('#subscribe()', () => {
+
+    it('should call the iOS makePayment() function with the correct args ', async (done) => {
+      try {
+        const productId = 'com.test.prod1';
+        const transactionId = '111111111';
+        const receipt = '222222222';
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
+          assert(typeof success === 'function', 'should define a success callback');
+          assert(typeof err === 'function', 'should define an error callback');
+          assert(pluginName === 'PaymentsPlugin', 'invalid iOS plugin name');
+          assert(name === 'buy', 'invalid function name');
+          assert(args[0] === productId, 'should get productId as args');
+          success({ productId, transactionId, receipt });
+        };
+        await inAppPurchase.subscribe(productId);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+  });
 
   describe('#consume()', () => {
 

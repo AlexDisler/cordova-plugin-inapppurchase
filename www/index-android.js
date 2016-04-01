@@ -114,39 +114,38 @@ inAppPurchase.getProducts = function (productIds) {
   });
 };
 
-var executePaymentOfType = function executePaymentOfType(resolve, reject, productId, type) {
-  if (!inAppPurchase.utils.validString(productId)) {
-    reject(new Error(inAppPurchase.utils.errors[102]));
-  } else {
-    nativeCall(type, [productId]).then(function (res) {
-      resolve({
-        signature: res.signature,
-        productId: res.productId,
-        transactionId: res.purchaseToken,
-        type: res.type,
-        receipt: JSON.stringify({
-          orderId: res.orderId,
-          packageName: res.packageName,
+var executePaymentOfType = function executePaymentOfType(type, productId) {
+  return new Promise(function (resolve, reject) {
+    if (!inAppPurchase.utils.validString(productId)) {
+      reject(new Error(inAppPurchase.utils.errors[102]));
+    } else {
+      nativeCall(type, [productId]).then(function (res) {
+        resolve({
+          signature: res.signature,
           productId: res.productId,
-          purchaseTime: res.purchaseTime,
-          purchaseState: res.purchaseState,
-          purchaseToken: res.purchaseToken
-        })
+          transactionId: res.purchaseToken,
+          type: res.type,
+          productType: res.type,
+          receipt: JSON.stringify({
+            orderId: res.orderId,
+            packageName: res.packageName,
+            productId: res.productId,
+            purchaseTime: res.purchaseTime,
+            purchaseState: res.purchaseState,
+            purchaseToken: res.purchaseToken
+          })
+        });
       });
-    }).catch(reject);
-  }
+    }
+  });
 };
 
 inAppPurchase.buy = function (productId) {
-  return new Promise(function (resolve, reject) {
-    executePaymentOfType(resolve, reject, productId, 'buy');
-  });
+  return executePaymentOfType('buy', productId);
 };
 
 inAppPurchase.subscribe = function (productId) {
-  return new Promise(function (resolve, reject) {
-    executePaymentOfType(resolve, reject, productId, 'subscribe');
-  });
+  return executePaymentOfType('subscribe', productId);
 };
 
 inAppPurchase.consume = function (type, receipt, signature) {
@@ -176,6 +175,7 @@ inAppPurchase.restorePurchases = function () {
           transactionId: val.orderId,
           date: val.date,
           type: val.type,
+          productType: val.type,
           signature: val.signature,
           receipt: JSON.stringify({
             orderId: val.orderId,

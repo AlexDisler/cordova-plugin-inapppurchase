@@ -212,11 +212,9 @@ public class InAppBillingV3 extends CordovaPlugin {
     int newOrder = orderSerial.getAndIncrement();
     this.cordova.setActivityResultCallback(this);
 
-
     IabHelper.OnIabPurchaseFinishedListener oipfl = new IabHelper.OnIabPurchaseFinishedListener() {
       public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
         if (result.isFailure()) {
-          // TODO: Add way more info to this
           int response = result.getResponse();
           if (response == IabHelper.IABHELPER_BAD_RESPONSE || response == IabHelper.IABHELPER_UNKNOWN_ERROR) {
             callbackContext.error(makeError("Could not complete purchase", BAD_RESPONSE_FROM_SERVER, result));
@@ -254,9 +252,11 @@ public class InAppBillingV3 extends CordovaPlugin {
     }
     return true;
   }
+
   protected boolean subscribe(final JSONArray args, final CallbackContext callbackContext) {
     return runPayment(args, callbackContext, true);
   }
+
   protected boolean buy(final JSONArray args, final CallbackContext callbackContext) {
     return runPayment(args, callbackContext, false);
   }
