@@ -52,17 +52,17 @@ If successful, the promise resolves to an array of objects. Each object has the 
 ___Example:___
 
 ```js
-  inAppPurchase
-    .getProducts(['com.yourapp.prod1', 'com.yourapp.prod2', ...])
-    .then(function (products) {
-      console.log(products);
-      /*
-         [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
-      */
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+inAppPurchase
+  .getProducts(['com.yourapp.prod1', 'com.yourapp.prod2', ...])
+  .then(function (products) {
+    console.log(products);
+    /*
+       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+    */
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ### Buy
@@ -83,21 +83,21 @@ If successful, the promise resolves to an object with the following attributes t
 ___Example:___
 
 ```js
-  inAppPurchase
-    .buy('com.yourapp.prod1')
-    .then(function (data) {
-      console.log(data);
-      /*
-        {
-          transactionId: ...
-          receipt: ...
-          signature: ...
-        }
-      */
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+inAppPurchase
+  .buy('com.yourapp.prod1')
+  .then(function (data) {
+    console.log(data);
+    /*
+      {
+        transactionId: ...
+        receipt: ...
+        signature: ...
+      }
+    */
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ### Subscribe
@@ -130,19 +130,19 @@ On ***iOS*** there is no need to "consume" a product. However, in order to make 
 ___Example:___
 
 ```js
-  // fist buy the product...
-  inAppPurchase
-    .buy('com.yourapp.consumable_prod1')
-    .then(function (data) {
-      // ...then mark it as consumed:
-      return inAppPurchase.consume(data.productType, data.receipt, data.signature);
-    })
-    .then(function () {
-      console.log('product was successfully consumed!');
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+// fist buy the product...
+inAppPurchase
+  .buy('com.yourapp.consumable_prod1')
+  .then(function (data) {
+    // ...then mark it as consumed:
+    return inAppPurchase.consume(data.productType, data.receipt, data.signature);
+  })
+  .then(function () {
+    console.log('product was successfully consumed!');
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ### Restore Purchases
@@ -162,22 +162,22 @@ If successful, the promise resolves to an array of objects with the following at
 ___Example:___
 
 ```js
-  inAppPurchase
-    .restorePurchases()
-    .then(function (data) {
-      console.log(data);
-      /*
-        [{
-          transactionId: ...
-          productId: ...
-          state: ...
-          date: ...
-        }]
-      */
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+inAppPurchase
+  .restorePurchases()
+  .then(function (data) {
+    console.log(data);
+    /*
+      [{
+        transactionId: ...
+        productId: ...
+        state: ...
+        date: ...
+      }]
+    */
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 See [Differences Between Product Types](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/Products.html)
@@ -193,14 +193,14 @@ On ***Android*** this function will always return an empty string since it's not
 ___Example:___
 
 ```js
-  inAppPurchase
-    .getReceipt()
-    .then(function (receipt) {
-      console.log(receipt);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+inAppPurchase
+  .getReceipt()
+  .then(function (receipt) {
+    console.log(receipt);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
 ```
 
 ## Developing
