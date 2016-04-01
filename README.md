@@ -106,7 +106,7 @@ ___Example:___
 
 - ___productId___ - a string of the productId
 
-This function behaves the same as ```buy()``` but with subscriptions.
+This function behaves the same as [buy()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#buy) but with subscriptions.
 
 ### Consume
 
@@ -116,7 +116,7 @@ This function behaves the same as ```buy()``` but with subscriptions.
 - ___receipt___ - string (containing a json)
 - ___signature___ - string
 
-All 3 parameters are returned by the [buy()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchasebuyproductid) or [restorePurchases()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaserestorepurchases) functions.
+All 3 parameters are returned by the [buy()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#buy) or [restorePurchases()](https://github.com/AlexDisler/cordova-plugin-inapppurchase#inapppurchaserestorepurchases) functions.
 
 Call this function after purchasing a "consumable" product to mark it as consumed.
 
