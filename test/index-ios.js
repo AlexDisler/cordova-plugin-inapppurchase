@@ -89,7 +89,7 @@ describe('iOS purchases', () => {
 
   describe('#buy()', () => {
 
-    it('should call the iOS makePayment() function with the correct args ', async (done) => {
+    it('should call the iOS buy() function with the correct args ', async (done) => {
       try {
         const productId = 'com.test.prod1';
         const transactionId = '111111111';
@@ -167,7 +167,7 @@ describe('iOS purchases', () => {
 
   describe('#subscribe()', () => {
 
-    it('should call the iOS makePayment() function with the correct args ', async (done) => {
+    it('should call the iOS buy() function with the correct args ', async (done) => {
       try {
         const productId = 'com.test.prod1';
         const transactionId = '111111111';
