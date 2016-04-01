@@ -149,7 +149,7 @@ ___Example:___
 
 #### inAppPurchase.restorePurchases()
 
-If successful, the promise resolves to an object with the following attributes:
+If successful, the promise resolves to an array of objects with the following attributes:
 
 - ```productId```
 - ```state``` - the state of the product. On ***Android*** the statuses are: ```0 - ACTIVE, 1 - CANCELLED,  2 - REFUNDED```
@@ -167,12 +167,12 @@ ___Example:___
     .then(function (data) {
       console.log(data);
       /*
-        {
+        [{
           transactionId: ...
           productId: ...
           state: ...
           date: ...
-        }
+        }]
       */
     })
     .catch(function (err) {
@@ -188,7 +188,7 @@ See [Differences Between Product Types](https://developer.apple.com/library/ios/
 
 On ***iOS***, you can get the receipt at any moment by calling the getReceipt() function. Note that on iOS the receipt can contain multiple transactions. If successful, the promise returned by this function will resolve to a string with the receipt.
 
-On ***Android*** this function will always return an empty string.
+On ***Android*** this function will always return an empty string since it's not needed for Android purchases.
 
 ___Example:___
 
