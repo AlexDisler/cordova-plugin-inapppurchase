@@ -126,14 +126,7 @@ var executePaymentOfType = function executePaymentOfType(type, productId) {
           transactionId: res.purchaseToken,
           type: res.type,
           productType: res.type,
-          receipt: JSON.stringify({
-            orderId: res.orderId,
-            packageName: res.packageName,
-            productId: res.productId,
-            purchaseTime: res.purchaseTime,
-            purchaseState: res.purchaseState,
-            purchaseToken: res.purchaseToken
-          })
+          receipt: res.receipt
         });
       }).catch(reject);
     }
@@ -177,14 +170,7 @@ inAppPurchase.restorePurchases = function () {
           type: val.type,
           productType: val.type,
           signature: val.signature,
-          receipt: JSON.stringify({
-            orderId: val.orderId,
-            packageName: val.packageName,
-            productId: val.productId,
-            purchaseTime: val.purchaseTime,
-            purchaseState: val.purchaseState,
-            purchaseToken: val.purchaseToken
-          })
+          receipt: val.receipt
         };
       });
     }

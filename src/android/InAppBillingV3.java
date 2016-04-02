@@ -238,6 +238,7 @@ public class InAppBillingV3 extends CordovaPlugin {
             pluginResponse.put("purchaseToken", purchase.getToken());
             pluginResponse.put("signature", purchase.getSignature());
             pluginResponse.put("type", purchase.getItemType());
+            pluginResponse.put("receipt", purchase.getOriginalJson());
             callbackContext.success(pluginResponse);
           } catch (JSONException e) {
             callbackContext.error("Purchase succeeded but success handler failed");
@@ -372,6 +373,7 @@ public class InAppBillingV3 extends CordovaPlugin {
                 detailsJson.put("purchaseToken", purchase.getToken());
                 detailsJson.put("signature", purchase.getSignature());
                 detailsJson.put("type", purchase.getItemType());
+                detailsJson.put("receipt", purchase.getOriginalJson());
                 response.put(detailsJson);
               }
             }

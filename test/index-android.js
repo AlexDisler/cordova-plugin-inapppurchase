@@ -185,23 +185,17 @@ describe('Android purchases', () => {
         const orderId = '_some_order_id_';
         const purchaseToken = '_some_purchase_token_';
         const signature = '_some_signature_';
+        const receipt = '_some_receipt_';
         const purchaseTime = Date.now();
         const purchaseState = 0;
         GLOBAL.window.cordova.exec = (success) => {
-          success({ productId, orderId, purchaseToken, signature, packageName, purchaseTime, purchaseState });
+          success({ productId, orderId, purchaseToken, signature, packageName, purchaseTime, purchaseState, receipt });
         };
         const res = await inAppPurchase.buy(productId);
         assert(res.signature === signature);
         assert(res.productId === productId);
         assert(res.transactionId === purchaseToken);
-        assert(typeof res.receipt === 'string');
-        const receiptJson = JSON.parse(res.receipt);
-        assert(receiptJson.orderId === orderId);
-        assert(receiptJson.packageName === packageName);
-        assert(receiptJson.productId === productId);
-        assert(receiptJson.purchaseTime === purchaseTime);
-        assert(receiptJson.purchaseState === purchaseState);
-        assert(receiptJson.purchaseToken === purchaseToken);
+        assert(res.receipt === receipt);
         done();
       } catch (err) {
         done(err);
