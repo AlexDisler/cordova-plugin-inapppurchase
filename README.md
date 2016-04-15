@@ -16,6 +16,11 @@ A lightweight Cordova plugin for in app purchases on iOS/Android. See [demo app]
 
     $ cordova plugin add cordova-plugin-inapppurchase
 
+## More Info
+
+- [Testing in app purchases](https://alexdisler.com/2016/04/04/testing-cordova-in-app-purchases-on-ios-android/)
+- [Receipt validation](https://alexdisler.com/2016/03/20/validating-cordova-in-app-purchases-on-ios-and-android-using-nodejs/)
+
 ## Configuration
 
 ### iOS
