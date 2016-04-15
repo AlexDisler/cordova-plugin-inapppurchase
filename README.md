@@ -16,11 +16,6 @@ A lightweight Cordova plugin for in app purchases on iOS/Android. See [demo app]
 
     $ cordova plugin add cordova-plugin-inapppurchase
 
-## More Info
-
-- [Testing in app purchases](https://alexdisler.com/2016/04/04/testing-cordova-in-app-purchases-on-ios-android/)
-- [Receipt validation](https://alexdisler.com/2016/03/20/validating-cordova-in-app-purchases-on-ios-and-android-using-nodejs/)
-
 ## Configuration
 
 ### iOS
@@ -34,6 +29,11 @@ You must create a ```manifest.json``` in your project's ```www``` folder with yo
     { "play_store_key": "<Base64-encoded public key from the Google Play Store>" }
 
 You can get this key from the Google Play Store (under "Services & APIs") after uploading your app.
+
+## More Info
+
+- [Testing in app purchases](https://alexdisler.com/2016/04/04/testing-cordova-in-app-purchases-on-ios-android/)
+- [Receipt validation](https://alexdisler.com/2016/03/20/validating-cordova-in-app-purchases-on-ios-and-android-using-nodejs/)
 
 ## API
 
