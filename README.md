@@ -5,7 +5,7 @@
 
 A lightweight Cordova plugin for in app purchases on iOS/Android. See [demo app](https://github.com/AlexDisler/cordova-inapppurchases-app) and [blog post](https://alexdisler.com/2016/02/29/in-app-purchases-ionic-cordova/).
 
-## Features:
+## Features
 
 - Simple, promise-based API
 - Support for consumable/non-consumable products and paid/free subscriptions
@@ -30,7 +30,7 @@ You must create a ```manifest.json``` in your project's ```www``` folder with yo
 
 You can get this key from the Google Play Store (under "Services & APIs") after uploading your app.
 
-## More Info
+## Setting up and testing purchases
 
 - [Configuring Cordova in app purchases on iOS and Android](https://alexdisler.com/2016/04/30/configuring-in-app-purchases-cordova-ionic-ios-android/)
 - [Testing in app purchases](https://alexdisler.com/2016/04/04/testing-cordova-in-app-purchases-on-ios-android/)
