@@ -12,7 +12,6 @@ const inAppPurchase = { utils };
 const createIapError = (reject) => {
   return (err = {}) => {
     err.errorCode = err.code;
-    delete err.code;
     return reject(err);
   };
 };

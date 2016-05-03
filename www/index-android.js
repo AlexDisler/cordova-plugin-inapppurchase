@@ -85,7 +85,6 @@ var createIapError = function createIapError(reject) {
     var err = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     err.errorCode = err.code;
-    delete err.code;
     return reject(err);
   };
 };
