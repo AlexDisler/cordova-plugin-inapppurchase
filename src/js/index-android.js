@@ -9,13 +9,18 @@
 
 const inAppPurchase = { utils };
 
+const createIapError = (reject) => {
+  return (err = {}) => {
+    err.errorCode = err.code;
+    return reject(err);
+  };
+};
+
 const nativeCall = (name, args = []) => {
   return new Promise((resolve, reject) => {
     window.cordova.exec((res) => {
       resolve(res);
-    }, (err) => {
-      reject(err);
-    }, 'InAppBillingV3', name, args);
+    }, createIapError(reject), 'InAppBillingV3', name, args);
   });
 };
 

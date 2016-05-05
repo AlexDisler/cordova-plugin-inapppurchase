@@ -3,6 +3,8 @@ import assert from 'assert';
 
 describe('Android purchases', () => {
 
+  const execError = code => (success, err, pluginName, name, args) => err({ code });
+
   before(() => {
     GLOBAL.window = {};
     GLOBAL.window.cordova = {};
@@ -117,6 +119,17 @@ describe('Android purchases', () => {
       done();
     });
 
+    it('should return an errorCode property when there is an error', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(-1)
+        await inAppPurchase.getProducts(['com.test.prod1']);
+        done(new Error('Call to #getProducts() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.errorCode === -1, 'should create an errorCode property');
+        done();
+      }
+    });
+
   });
 
   describe('#buy()', () => {
@@ -202,6 +215,17 @@ describe('Android purchases', () => {
       }
     });
 
+    it('should return an errorCode property when there is an error', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(-1);
+        await inAppPurchase.buy('com.test.prod1');
+        done(new Error('Call to #buy() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.errorCode === -1, 'should create an errorCode property');
+        done();
+      }
+    });
+
   });
 
   describe('#subscribe()', () => {
@@ -223,6 +247,17 @@ describe('Android purchases', () => {
         done();
       } catch (err) {
         done(err);
+      }
+    });
+
+    it('should return an errorCode property when there is an error', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(-1);
+        await inAppPurchase.subscribe('com.test.prod1');
+        done(new Error('Call to #subscribe() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.errorCode === -1, 'should create an errorCode property');
+        done();
       }
     });
 
@@ -249,6 +284,20 @@ describe('Android purchases', () => {
         done();
       } catch (err) {
         done(err);
+      }
+    });
+
+    it('should return an errorCode property when there is an error', async(done) => {
+      try {
+        const receipt = '_some_receipt_';
+        const signature = '_some_signature_';
+        const type = 'inapp';
+        GLOBAL.window.cordova.exec = execError(-1);
+        await inAppPurchase.consume(type, receipt, signature);
+        done(new Error('Call to #consume() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.errorCode === -1, 'should create an errorCode property');
+        done();
       }
     });
 
@@ -319,6 +368,17 @@ describe('Android purchases', () => {
         done();
       } catch (err) {
         done(err);
+      }
+    });
+
+    it('should return an errorCode property when there is an error', async(done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(-1);
+        await inAppPurchase.restorePurchases();
+        done(new Error('Call to #restorePurchases() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.errorCode === -1, 'should create an errorCode property');
+        done();
       }
     });
 
