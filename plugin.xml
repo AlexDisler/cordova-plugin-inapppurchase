@@ -27,12 +27,17 @@
       </feature>
     </config-file>
 
+    <header-file src="src/ios/RMAppReceipt.h" />
+    <source-file src="src/ios/RMAppReceipt.m" />
     <header-file src="src/ios/RMStore.h" />
     <source-file src="src/ios/RMStore.m" />
     <header-file src="src/ios/PaymentsPlugin.h" />
     <source-file src="src/ios/PaymentsPlugin.m" />
 
     <framework src="StoreKit.framework" />
+
+    <!-- openssl library -->
+    <framework src="src/ios/openssl.framework"  custom="true" />
   </platform>
 
   <platform name="android">
