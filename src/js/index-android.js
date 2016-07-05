@@ -117,4 +117,8 @@ inAppPurchase.getReceipt = () => {
   return Promise.resolve('');
 };
 
+inAppPurchase.getReceiptBundle = () => {
+  return Promise.resolve('');
+};
+
 module.exports = inAppPurchase;

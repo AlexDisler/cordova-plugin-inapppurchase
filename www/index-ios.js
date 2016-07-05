@@ -120,6 +120,12 @@ inAppPurchase.getReceipt = function () {
   });
 };
 
+inAppPurchase.getReceiptBundle = function () {
+  return nativeCall('getReceiptBundle').then(function (res) {
+    return res;
+  });
+};
+
 inAppPurchase.restorePurchases = function () {
   return nativeCall('restorePurchases').then(function (res) {
     var arr = [];
