@@ -262,4 +262,25 @@ describe('iOS purchases', () => {
 
   });
 
+  describe('#getReceiptBundle()', () => {
+
+    it('should call the iOS getReceiptBundle() function', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name) => {
+          assert(typeof success === 'function', 'should define a success callback');
+          assert(typeof err === 'function', 'should define an error callback');
+          assert(pluginName === 'PaymentsPlugin', 'invalid iOS plugin name');
+          assert(name === 'getReceiptBundle', 'invalid function name');
+          success('');
+        };
+        await inAppPurchase.getReceiptBundle();
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+  });
+
+
 });
