@@ -210,6 +210,71 @@ inAppPurchase
   });
 ```
 
+
+### Get Receipt Bundle
+
+#### inAppPurchase.getReceiptBundle()
+
+On ***iOS***, you can get the receipt bundle at any moment by calling the getReceiptBundle() function. Note that on iOS the receipt can contain multiple transactions. If successful, the promise returned by this function will resolve to an object with the following attributes:
+
+- ```appVersion``` - The app’s version number
+- ```originalAppVersion``` - The version of the app that was originally purchased (In the sandbox environment, the value of this field is always “1.0”)
+- ```bundleIdentifier``` - The app’s bundle identifier
+- ```inAppPurchases``` - an array containing all in-app purchase receipts 
+   - The in-app purchase receipt for a **non-consumable product**, **auto-renewable subscription**, or **free subscription** remains in the receipt *indefinitely*.
+   - The in-app purchase receipt for a **consumable product** or **non-renewing subscription** is *added* to the receipt when the purchase is made. It is kept in the receipt until your app finishes that transaction. After that point, it is *removed* from the receipt the next time the receipt is updated—for example, when the user makes another purchase or if your app explicitly refreshes the receipt.
+
+**in-app purchase receipts** contains an array of objects with the following attributes:
+
+- ```transactionIdentifier``` - The transaction identifier of the item that was purchased.
+- ```quantity``` - The number of items purchased.
+- ```purchaseDate``` - The date and time that the item was purchased.
+- ```productId``` - The product identifier of the item that was purchased.
+- ```originalPurchaseDate``` - For a transaction that restores a previous transaction, the date of the original transaction.
+- ```subscriptionExpirationDate``` - The expiration date for the subscription, expressed as the number of milliseconds since January 1, 1970, 00:00:00 GMT.
+- ```originalTransactionIdentifier``` - For a transaction that restores a previous transaction, the transaction identifier of the original transaction. Otherwise, identical to the transaction identifier.
+- ```cancellationDate``` - For a transaction that was canceled by Apple customer support, the time and date of the cancellation
+- ```webOrderLineItemID``` - The primary key for identifying subscription purchases.
+
+See Apple documentation: [App Receipt Fields](https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ReceiptFields.html)
+
+
+On ***Android*** this function will always return an empty string since it's not needed for Android purchases.
+
+___Example:___
+
+```js
+inAppPurchase
+  .getReceiptBundle()
+  .then(function (receiptBundle) {
+    console.log(receiptBundle);
+    /*
+      {
+        "originalAppVersion": "1.0",
+        "appVersion": "0.1.0",
+        "inAppPurchases": [
+          {
+                "transactionIdentifier":"123412341234",
+                "quantity":1,
+                "purchaseDate":"2016-07-05T10:15:21Z",
+                "productId":"com.mycompany.myapp.weekly.v1",
+                "originalPurchaseDate":"2016-07-05T10:15:22Z",
+                "subscriptionExpirationDate":"2016-07-05T10:18:21Z",
+                "originalTransactionIdentifier":"123412341234",
+                "webOrderLineItemID":-1497665198,
+                "cancellationDate":null
+          }
+        ],
+        "bundleIdentifier": "com.mycompany.myapp"
+      }
+    */
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+```
+
+
 ## Developing
 
 ### Build:
