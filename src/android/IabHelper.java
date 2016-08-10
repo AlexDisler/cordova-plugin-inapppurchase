@@ -74,7 +74,7 @@ import com.android.vending.billing.IInAppBillingService;
  */
 public class IabHelper {
 
-	public static final int QUERY_SKU_DETAILS_BATCH_SIZE = 20;
+    public static final int QUERY_SKU_DETAILS_BATCH_SIZE = 20;
 
     // Is debug logging enabled?
     boolean mDebugLog = false;
