@@ -33,11 +33,19 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSMutableArray *validProducts = [NSMutableArray array];
     for (SKProduct *product in products) {
+
+      NSString *country = [product.priceLocale objectForKey:NSLocaleCountryCode];
+      NSString *currency = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
+
       [validProducts addObject:@{
                                  @"productId": NILABLE(product.productIdentifier),
                                  @"title": NILABLE(product.localizedTitle),
                                  @"description": NILABLE(product.localizedDescription),
                                  @"price": NILABLE([RMStore localizedPriceOfProduct:product]),
+
+                                 @"country": NILABLE(country),
+                                 @"currency": NILABLE(currency),
+                                 @"priceRaw": NILABLE([product.price stringValue]),
                               }];
     }
     [result setObject:validProducts forKey:@"products"];
@@ -132,6 +140,33 @@
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }];
+}
+
+
+#pragma mark -
+#pragma mark Store Observer
+
+- (void)storePaymentTransactionFinished:(NSNotification*)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    SKPaymentTransaction *transaction = userInfo[@"transaction"];
+    NSString *productId = userInfo[@"productIdentifier"];
+    
+    NSLog(@"Transaction Finished : %@ (productId: %@)", transaction, productId);
+    
+    
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+    NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
+    
+    
+    NSDictionary *event = @{@"productId": productId, @"transactionId": transaction.transactionIdentifier, @"receipt": encReceipt};
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:event options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSString *js = [NSString stringWithFormat:@"cordova.fireDocumentEvent('transactionfinished', %@);", jsonString];
+    [self.commandDelegate evalJs:js];
 }
 
 @end
