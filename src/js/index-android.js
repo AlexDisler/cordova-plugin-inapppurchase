@@ -39,6 +39,9 @@ inAppPurchase.getProducts = (productIds) => {
             title       : val.title,
             description : val.description,
             price       : val.price,
+            priceRaw    : val.priceRaw,
+            currency    : val.currency,
+            country     : "",
           };
         });
         resolve(arr);
