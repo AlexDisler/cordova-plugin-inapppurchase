@@ -337,6 +337,8 @@ public class InAppBillingV3 extends CordovaPlugin {
               detailsJson.put("title", skuDetails.getTitle());
               detailsJson.put("description", skuDetails.getDescription());
               detailsJson.put("price", skuDetails.getPrice());
+              detailsJson.put("priceRaw", skuDetails.getPriceRaw());
+              detailsJson.put("currency", skuDetails.getCurrencyCode());
               detailsJson.put("type", skuDetails.getType());
               response.put(detailsJson);
             }

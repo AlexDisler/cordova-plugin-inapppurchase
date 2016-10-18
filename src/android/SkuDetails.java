@@ -17,6 +17,7 @@ package com.alexdisler.inapppurchases;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.text.DecimalFormat;
 
 /**
  * Represents an in-app product's listing details.
@@ -26,6 +27,8 @@ public class SkuDetails {
     String mSku;
     String mType;
     String mPrice;
+    String mPriceRaw;
+    String mCurrencyCode;
     String mTitle;
     String mDescription;
     String mJson;
@@ -41,13 +44,21 @@ public class SkuDetails {
         mSku = o.optString("productId");
         mType = o.optString("type");
         mPrice = o.optString("price");
+        mCurrencyCode = o.optString("price_currency_code");
         mTitle = o.optString("title");
         mDescription = o.optString("description");
+
+        String priceMicrosStr = o.optString("price_amount_micros");
+        long priceMicros = Long.parseLong(priceMicrosStr);
+        DecimalFormat formatter = new DecimalFormat("#.00####");
+        mPriceRaw = formatter.format(priceMicros / 1000000.0);
     }
 
     public String getSku() { return mSku; }
     public String getType() { return mType; }
     public String getPrice() { return mPrice; }
+    public String getPriceRaw() { return mPriceRaw; }
+    public String getCurrencyCode() { return mCurrencyCode; }
     public String getTitle() { return mTitle; }
     public String getDescription() { return mDescription; }
 
