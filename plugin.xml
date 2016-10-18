@@ -3,15 +3,15 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="cordova-plugin-inapppurchase"
-  version="1.0.0">
+  version="1.1.0">
 
-  <name>In App Purchase</name>
+  <name>In App Purchase Tobo</name>
   <description>A lightweight cordova plugin for in app purchases on iOS and Android with a simple promise based API.</description>
   <engines>
     <engine name="cordova" version=">=5.0.0" />
   </engines>
-  <repo>https://github.com/AlexDisler/cordova-plugin-inapppurchase.git</repo>
-  <issue>https://github.com/AlexDisler/cordova-plugin-inapppurchase/issues</issue>
+  <repo>https://bayard.codebasehq.com/inapp/cordova-plugin-inapppurchase-tobo.git</repo>
+  <issue></issue>
 
   <license>MIT</license>
   <keywords>cordova,phonegap,ionic,purchase,storekit,ios,android,play,appstore</keywords>
