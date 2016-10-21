@@ -1,16 +1,12 @@
 {
-  "name": "cordova-plugin-inapppurchase",
-  "version": "1.0.0",
+  "name": "cordova-plugin-inapppurchase-tobo",
+  "version": "1.2.0",
   "description": "A lightweight cordova plugin for in app purchases on iOS and Android with a simple promise based API.",
   "main": "www/index-ios.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill test/*",
     "watch": "mocha --watch --compilers js:babel-core/register --require babel-polyfill test/*",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/AlexDisler/cordova-plugin-inapppurchase.git"
   },
   "keywords": [
     "cordova",
@@ -37,7 +33,7 @@
     "url": "alexdisler.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/AlexDisler/cordova-plugin-inapppurchase",
+  "homepage": "",
   "devDependencies": {
     "babel-core": "6.5.2",
     "babel-plugin-syntax-async-functions": "6.5.0",
