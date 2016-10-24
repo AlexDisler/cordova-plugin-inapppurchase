@@ -51,6 +51,7 @@ public class SkuDetails {
         String priceMicrosStr = o.optString("price_amount_micros");
         long priceMicros = Long.parseLong(priceMicrosStr);
         DecimalFormat formatter = new DecimalFormat("#.00####");
+        formatter.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         mPriceRaw = formatter.format(priceMicros / 1000000.0);
     }
 
