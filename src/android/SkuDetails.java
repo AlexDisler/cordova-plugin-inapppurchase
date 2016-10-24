@@ -18,6 +18,8 @@ package com.alexdisler.inapppurchases;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * Represents an in-app product's listing details.
