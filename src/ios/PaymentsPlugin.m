@@ -15,6 +15,7 @@
 @implementation PaymentsPlugin
 
 - (void)pluginInitialize {
+  [[RMStore defaultStore] addStoreObserver:self];
 }
 
 - (void)getProducts:(CDVInvokedUrlCommand *)command {
@@ -151,20 +152,20 @@
     NSDictionary *userInfo = notification.userInfo;
     SKPaymentTransaction *transaction = userInfo[@"transaction"];
     NSString *productId = userInfo[@"productIdentifier"];
-    
+
     NSLog(@"Transaction Finished : %@ (productId: %@)", transaction, productId);
-    
-    
+
+
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
     NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
-    
-    
+
+
     NSDictionary *event = @{@"productId": productId, @"transactionId": transaction.transactionIdentifier, @"receipt": encReceipt};
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:event options:0 error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
+
     NSString *js = [NSString stringWithFormat:@"cordova.fireDocumentEvent('transactionfinished', %@);", jsonString];
     [self.commandDelegate evalJs:js];
 }
