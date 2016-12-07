@@ -42,7 +42,7 @@ utils.validString = function (val) {
 var inAppPurchase = { utils: utils };
 
 var nativeCall = function nativeCall(name) {
-  var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+  var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
   return new Promise(function (resolve, reject) {
     window.cordova.exec(function (res) {
