@@ -66,6 +66,21 @@ utils.validArrayOfStrings = function (val) {
 utils.validString = function (val) {
   return val && val.length && typeof val === 'string';
 };
+
+utils.chunk = function (array, size) {
+  if (!Array.isArray(array)) {
+    throw new Error('Invalid array');
+  }
+
+  if (typeof size !== 'number' || size < 1) {
+    throw new Error('Invalid size');
+  }
+
+  var times = Math.ceil(array.length / size);
+  return Array.apply(null, Array(times)).reduce(function (result, val, i) {
+    return result.concat([array.slice(i * size, (i + 1) * size)]);
+  }, []);
+};
 'use strict';
 
 /*!
@@ -98,13 +113,24 @@ var nativeCall = function nativeCall(name) {
   });
 };
 
+var chunkedGetSkuDetails = function chunkedGetSkuDetails(productIds) {
+  // We need to chunk the getSkuDetails call cause it is only allowed to provide a maximum of 20 items per call
+  return utils.chunk(productIds, 19).reduce(function (promise, productIds) {
+    return promise.then(function (result) {
+      return nativeCall('getSkuDetails', productIds).then(function (items) {
+        return result.concat(items);
+      });
+    });
+  }, Promise.resolve([]));
+};
+
 inAppPurchase.getProducts = function (productIds) {
   return new Promise(function (resolve, reject) {
     if (!inAppPurchase.utils.validArrayOfStrings(productIds)) {
       reject(new Error(inAppPurchase.utils.errors[101]));
     } else {
       nativeCall('init', []).then(function () {
-        return nativeCall('getSkuDetails', productIds);
+        return chunkedGetSkuDetails(productIds);
       }).then(function (items) {
         var arr = items.map(function (val) {
           return {

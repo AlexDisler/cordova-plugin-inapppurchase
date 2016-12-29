@@ -24,3 +24,20 @@ utils.validArrayOfStrings = (val) => {
 utils.validString = (val) => {
   return (val && val.length && typeof val === 'string');
 };
+
+utils.chunk = (array, size) => {
+  if (!Array.isArray(array)) {
+    throw new Error('Invalid array');
+  }
+
+  if (typeof size !== 'number' || size < 1) {
+    throw new Error('Invalid size');
+  }
+
+  const times = Math.ceil(array.length / size);
+  return Array
+    .apply(null, Array(times))
+    .reduce((result, val, i) => {
+      return result.concat([array.slice(i * size, (i + 1) * size)]);
+    }, []);
+};

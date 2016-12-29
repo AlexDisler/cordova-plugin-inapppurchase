@@ -28,6 +28,21 @@ utils.validArrayOfStrings = function (val) {
 utils.validString = function (val) {
   return val && val.length && typeof val === 'string';
 };
+
+utils.chunk = function (array, size) {
+  if (!Array.isArray(array)) {
+    throw new Error('Invalid array');
+  }
+
+  if (typeof size !== 'number' || size < 1) {
+    throw new Error('Invalid size');
+  }
+
+  var times = Math.ceil(array.length / size);
+  return Array.apply(null, Array(times)).reduce(function (result, val, i) {
+    return result.concat([array.slice(i * size, (i + 1) * size)]);
+  }, []);
+};
 'use strict';
 
 /*!
