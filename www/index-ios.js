@@ -20,13 +20,11 @@ utils.errors = {
 };
 
 utils.validArrayOfStrings = function (val) {
-  return val && Array.isArray(val) && val.length > 0 && !val.find(function (i) {
-    return !i.length || typeof i !== 'string';
-  });
+  return Array.isArray(val) && val.length > 0 && val.every(utils.validString);
 };
 
 utils.validString = function (val) {
-  return val && val.length && typeof val === 'string';
+  return typeof val === 'string' && val.length > 0;
 };
 'use strict';
 
