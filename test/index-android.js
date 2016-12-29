@@ -45,7 +45,7 @@ describe('Android purchases', () => {
             assert(typeof success === 'function', 'should define a success callback');
             assert(typeof err === 'function', 'should define an error callback');
             assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
-            assert(args === productIds, 'should get productIds as args');
+            assert.deepEqual(args, productIds, 'should get productIds as args');
             getSkuDetailsCalled = true;
             success([]);
           } else if (name === 'init') {
@@ -54,6 +54,31 @@ describe('Android purchases', () => {
         };
         await inAppPurchase.getProducts(productIds);
         assert(getSkuDetailsCalled, 'getSkuDetails() should be called');
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    it('should chunk the getSkuDetails call when more than 19 product ids are given', async (done) => {
+      try {
+        const productIds = [
+          '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'
+        ];
+        const calls = [];
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
+          if (name === 'getSkuDetails') {
+            calls.push(args);
+            success([]);
+          } else if (name === 'init') {
+            success();
+          }
+        };
+        await inAppPurchase.getProducts(productIds);
+        assert.deepEqual(calls, [
+          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
+          ['20', '21']
+        ],'getSkuDetails() should be called chunked');
         done();
       } catch (err) {
         done(err);
