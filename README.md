@@ -1,3 +1,5 @@
+# This project is no longer maintained
+
 # cordova-plugin-inapppurchase 📱💰
 
 [![Build Status](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase.svg?branch=master)](https://travis-ci.org/AlexDisler/cordova-plugin-inapppurchase)
