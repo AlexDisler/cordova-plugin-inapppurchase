@@ -231,6 +231,18 @@ Coverage report:
 
     $ nyc npm test
 
+## Debugging
+
+- Have you enabled In-App Purchases for your App ID?
+- Have you checked Cleared for Sale for your product?
+- Does your project’s .plist Bundle ID match your App ID?
+- Have you generated and installed a new provisioning profile for the new App ID?
+- Have you configured your project to code sign using this new provisioning profile?
+- Have you waited several hours since adding your product to iTunes Connect?
+- Have you tried deleting the app from your device and reinstalling?
+- Have you accepted contracts for IAPs in iTunes connect?
+- Is your device jailbroken? If so, you need to revert the jailbreak for IAP to work.
+
 ## Thanks / Credits
 
 - [Adar Porat](https://github.com/aporat)
