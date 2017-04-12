@@ -5,7 +5,7 @@
 
 A lightweight Cordova plugin for in app purchases on iOS/Android. See [demo app](https://github.com/AlexDisler/cordova-inapppurchases-app) and [blog post](https://alexdisler.com/2016/02/29/in-app-purchases-ionic-cordova/).
 
-# Looking for maintainers
+## Looking for maintainers
 
 If you would like to maintain this project, get in touch.
 
