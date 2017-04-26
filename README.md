@@ -64,11 +64,11 @@ ___Example:___
 
 ```js
 inAppPurchase
-  .getProducts(['com.yourapp.prod1', 'com.yourapp.prod2', ...])
+  .getProducts(['prod1', 'prod2', ...])
   .then(function (products) {
     console.log(products);
     /*
-       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+       [{ productId: 'prod1', 'title': '...', description: '...', price: '...' }, ...]
     */
   })
   .catch(function (err) {
@@ -95,7 +95,7 @@ ___Example:___
 
 ```js
 inAppPurchase
-  .buy('com.yourapp.prod1')
+  .buy('prod1')
   .then(function (data) {
     console.log(data);
     /*
@@ -143,7 +143,7 @@ ___Example:___
 ```js
 // first buy the product...
 inAppPurchase
-  .buy('com.yourapp.consumable_prod1')
+  .buy('consumable_prod1')
   .then(function (data) {
     // ...then mark it as consumed:
     return inAppPurchase.consume(data.productType, data.receipt, data.signature);
@@ -212,6 +212,21 @@ inAppPurchase
   .catch(function (err) {
     console.log(err);
   });
+```
+
+## Known issues
+### My getProducts returns an empty array
+To solve it, please check the following steps:
+
+- Make sure that your ```manifest.json``` contains the same billing keys as the [Google Play Developer Console](https://play.google.com/apps/publish) *(Your Android Billing Key under the "Services & APIs)*.
+- Make sure that you have added the following billing permissions in ```AndroidManifest.xml```:
+```xml
+<uses-permission android:name="android.permission.BILLING" />
+<uses-permission android:name="com.android.vending.BILLING" />
+```
+- Check that your ```productIds``` is correctly filled, here is an example:
+```js
+var productIds = ['credit_10', 'credit_20', ...];
 ```
 
 ## Developing
