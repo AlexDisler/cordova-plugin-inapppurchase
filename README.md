@@ -141,7 +141,7 @@ On ***iOS*** there is no need to "consume" a product. However, in order to make 
 ___Example:___
 
 ```js
-// fist buy the product...
+// first buy the product...
 inAppPurchase
   .buy('com.yourapp.consumable_prod1')
   .then(function (data) {
