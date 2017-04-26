@@ -422,4 +422,17 @@ describe('Android purchases', () => {
 
   });
 
+  describe('#getReceiptBundle()', () => {
+
+    it('should always successfully resolve without doing anything', async (done) => {
+      try {
+        await inAppPurchase.getReceiptBundle();
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+  });
+
 });

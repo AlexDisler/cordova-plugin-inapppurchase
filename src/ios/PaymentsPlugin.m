@@ -9,6 +9,7 @@
 
 #import "PaymentsPlugin.h"
 #import "RMStore.h"
+#import "RMAppReceipt.h"
 
 #define NILABLE(obj) ((obj) != nil ? (NSObject *)(obj) : (NSObject *)[NSNull null])
 
@@ -114,6 +115,57 @@
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }];
+}
+
+
+- (void)getReceiptBundle:(CDVInvokedUrlCommand *)command {
+  NSMutableDictionary *result = [NSMutableDictionary dictionary];
+  NSMutableArray *inAppPurchases = [NSMutableArray array];
+
+  @try {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+    for (id iap in [[RMAppReceipt bundleReceipt] inAppPurchases]) {
+      if ([iap isKindOfClass:[RMAppReceiptIAP class]]) {
+        RMAppReceiptIAP *receiptIAP = (RMAppReceiptIAP *)iap;
+        NSString *purchaseDateString = [formatter stringFromDate:receiptIAP.purchaseDate];
+        NSString *subscriptionExpirationDateString = [formatter stringFromDate:receiptIAP.subscriptionExpirationDate];
+        NSString *cancellationDateString = [formatter stringFromDate:receiptIAP.cancellationDate];
+        NSString *originalPurchaseDateString = [formatter stringFromDate:receiptIAP.originalPurchaseDate];
+
+        [inAppPurchases addObject:@{
+          @"productId": NILABLE(receiptIAP.productIdentifier),
+          @"purchaseDate": NILABLE(purchaseDateString),
+          @"originalPurchaseDate": NILABLE(originalPurchaseDateString),
+          @"subscriptionExpirationDate": NILABLE(subscriptionExpirationDateString),
+          @"cancellationDate": NILABLE(cancellationDateString),
+          @"transactionIdentifier": NILABLE(receiptIAP.transactionIdentifier),
+          @"originalTransactionIdentifier": NILABLE(receiptIAP.originalTransactionIdentifier),
+          @"quantity": NILABLE([NSNumber numberWithInteger:receiptIAP.quantity]),
+          @"webOrderLineItemID": NILABLE([NSNumber numberWithInteger:receiptIAP.webOrderLineItemID])
+        }];
+      }
+    }
+
+    [result setObject:inAppPurchases forKey:@"inAppPurchases"];
+    [result setValue:[[RMAppReceipt bundleReceipt] appVersion] forKey:@"appVersion"];
+    [result setValue:[[RMAppReceipt bundleReceipt] originalAppVersion] forKey:@"originalAppVersion"];
+    [result setValue:[[RMAppReceipt bundleReceipt] bundleIdentifier] forKey:@"bundleIdentifier"];
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  }
+
+  @catch (NSException *exception) {
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION
+                                    messageAsString:[exception reason]];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  }
 }
 
 - (void)getReceipt:(CDVInvokedUrlCommand *)command {
