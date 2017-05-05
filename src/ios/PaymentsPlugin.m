@@ -160,6 +160,9 @@
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
     NSString *encReceipt = [receiptData base64EncodedStringWithOptions:0];
 
+    if (!encReceipt) {
+        encReceipt = @"";
+    }
 
     NSDictionary *event = @{@"productId": productId, @"transactionId": transaction.transactionIdentifier, @"receipt": encReceipt};
     NSError *error = nil;
