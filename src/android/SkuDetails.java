@@ -26,6 +26,7 @@ public class SkuDetails {
     String mSku;
     String mType;
     String mPrice;
+    String mPriceCurrency;
     String mTitle;
     String mDescription;
     String mJson;
@@ -41,6 +42,7 @@ public class SkuDetails {
         mSku = o.optString("productId");
         mType = o.optString("type");
         mPrice = o.optString("price");
+        mPriceCurrency = o.optString("price_currency_code");
         mTitle = o.optString("title");
         mDescription = o.optString("description");
     }
@@ -48,6 +50,7 @@ public class SkuDetails {
     public String getSku() { return mSku; }
     public String getType() { return mType; }
     public String getPrice() { return mPrice; }
+    public String getPriceCurrency() { return mPriceCurrency; }
     public String getTitle() { return mTitle; }
     public String getDescription() { return mDescription; }
 
