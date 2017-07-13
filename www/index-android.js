@@ -82,7 +82,7 @@ var inAppPurchase = { utils: utils };
 
 var createIapError = function createIapError(reject) {
   return function () {
-    var err = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var err = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     err.errorCode = err.code;
     return reject(err);
@@ -90,7 +90,7 @@ var createIapError = function createIapError(reject) {
 };
 
 var nativeCall = function nativeCall(name) {
-  var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+  var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
   return new Promise(function (resolve, reject) {
     window.cordova.exec(function (res) {
@@ -105,8 +105,10 @@ inAppPurchase.getProducts = function (productIds) {
       reject(new Error(inAppPurchase.utils.errors[101]));
     } else {
       nativeCall('init', []).then(function () {
+        console.log("inAppPurchase.getProducts() native init callback");
         return nativeCall('getSkuDetails', productIds);
       }).then(function (items) {
+        console.log("inAppPurchase.getProducts() native getSkuDetails callback");
         var arr = items.map(function (val) {
           return {
             productId: val.productId,
@@ -115,6 +117,7 @@ inAppPurchase.getProducts = function (productIds) {
             price: val.price
           };
         });
+        console.log("inAppPurchase.getProducts() calling callback, res:" + JSON.stringify(arr));
         resolve(arr);
       }).catch(reject);
     }

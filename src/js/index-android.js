@@ -30,9 +30,11 @@ inAppPurchase.getProducts = (productIds) => {
       reject(new Error(inAppPurchase.utils.errors[101]));
     } else {
       nativeCall('init', []).then(() => {
+        console.log("inAppPurchase.getProducts() native init callback");
         return nativeCall('getSkuDetails', productIds);
       })
       .then((items) => {
+        console.log("inAppPurchase.getProducts() native getSkuDetails callback");
         const arr = items.map((val) => {
           return {
             productId   : val.productId,
@@ -41,6 +43,7 @@ inAppPurchase.getProducts = (productIds) => {
             price       : val.price,
           };
         });
+        console.log("inAppPurchase.getProducts() calling callback, res:"+JSON.stringify(arr));
         resolve(arr);
       }).catch(reject);
     }
