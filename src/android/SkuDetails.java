@@ -25,6 +25,7 @@ public class SkuDetails {
     String mItemType;
     String mSku;
     String mType;
+    Double mPriceAsDecimal;
     String mPrice;
     String mTitle;
     String mDescription;
@@ -41,6 +42,7 @@ public class SkuDetails {
         mSku = o.optString("productId");
         mType = o.optString("type");
         mPrice = o.optString("price");
+        mPriceAsDecimal = Double.parseDouble(o.optString("price_amount_micros"))/Double.valueOf(1000000);
         mTitle = o.optString("title");
         mDescription = o.optString("description");
     }
@@ -48,6 +50,7 @@ public class SkuDetails {
     public String getSku() { return mSku; }
     public String getType() { return mType; }
     public String getPrice() { return mPrice; }
+    public Double getPriceAsDecimal() { return mPriceAsDecimal; }
     public String getTitle() { return mTitle; }
     public String getDescription() { return mDescription; }
 

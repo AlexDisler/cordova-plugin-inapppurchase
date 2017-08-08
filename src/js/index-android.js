@@ -44,10 +44,11 @@ inAppPurchase.getProducts = (productIds) => {
       .then((items) => {
         const arr = items.map((val) => {
           return {
-            productId   : val.productId,
-            title       : val.title,
-            description : val.description,
-            price       : val.price,
+            productId      : val.productId,
+            title          : val.title,
+            description    : val.description,
+            price          : val.price,
+            priceAsDecimal : val.priceAsDecimal,
           };
         });
         resolve(arr);
