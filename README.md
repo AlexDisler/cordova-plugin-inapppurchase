@@ -58,6 +58,7 @@ If successful, the promise resolves to an array of objects. Each object has the 
 - ```productId``` - SKU / product bundle id (such as 'com.yourapp.prod1')
 - ```title``` - short localized title
 - ```description``` - long localized description
+- ```currency``` - currency of the price
 - ```price``` - localized price
 
 ___Example:___
@@ -68,7 +69,7 @@ inAppPurchase
   .then(function (products) {
     console.log(products);
     /*
-       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', currency: '...', price: '...' }, ...]
     */
   })
   .catch(function (err) {
