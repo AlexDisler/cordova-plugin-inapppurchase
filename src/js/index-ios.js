@@ -30,10 +30,11 @@ inAppPurchase.getProducts = (productIds) => {
         } else {
           const arr = res.products.map((val) => {
             return {
-              productId   : val.productId,
-              title       : val.title,
-              description : val.description,
-              price       : val.price,
+              productId      : val.productId,
+              title          : val.title,
+              description    : val.description,
+              priceAsDecimal : val.priceAsDecimal,
+              price          : val.price,
             };
           });
           resolve(arr);
