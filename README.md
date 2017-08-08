@@ -59,6 +59,7 @@ If successful, the promise resolves to an array of objects. Each object has the 
 - ```title``` - short localized title
 - ```description``` - long localized description
 - ```price``` - localized price
+- ```priceAsDecimal``` - price as a decimal
 
 ___Example:___
 
@@ -68,7 +69,7 @@ inAppPurchase
   .then(function (products) {
     console.log(products);
     /*
-       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...', priceAsDecimal: '...' }, ...]
     */
   })
   .catch(function (err) {
