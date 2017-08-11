@@ -58,7 +58,7 @@ If successful, the promise resolves to an array of objects. Each object has the 
 - ```productId``` - SKU / product bundle id (such as 'com.yourapp.prod1')
 - ```title``` - short localized title
 - ```description``` - long localized description
-- ```currency``` - currency of the price
+- ```currency``` - currency of the price (such as 'EUR', 'USD')
 - ```price``` - localized price
 
 ___Example:___
