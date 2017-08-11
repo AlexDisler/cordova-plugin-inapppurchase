@@ -33,12 +33,19 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSMutableArray *validProducts = [NSMutableArray array];
     for (SKProduct *product in products) {
-      [validProducts addObject:@{
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:product.priceLocale];
+        NSString *currencyCode = [numberFormatter currencyCode];
+        
+        [validProducts addObject:@{
                                  @"productId": NILABLE(product.productIdentifier),
                                  @"title": NILABLE(product.localizedTitle),
                                  @"description": NILABLE(product.localizedDescription),
                                  @"price": NILABLE([RMStore localizedPriceOfProduct:product]),
-                              }];
+                                 @"currency": NILABLE(currencyCode)
+                                 }];
     }
     [result setObject:validProducts forKey:@"products"];
     [result setObject:invalidProductIdentifiers forKey:@"invalidProductsIds"];
