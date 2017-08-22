@@ -236,6 +236,7 @@ Coverage report:
 
 ## Debugging
 
+- Are you testing on a real device? In App purchases are not supported in emulators/simulators.
 - Have you enabled In-App Purchases for your App ID?
 - Have you checked Cleared for Sale for your product?
 - Does your project’s .plist Bundle ID match your App ID?
