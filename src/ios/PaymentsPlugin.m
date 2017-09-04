@@ -43,6 +43,7 @@
                                  @"productId": NILABLE(product.productIdentifier),
                                  @"title": NILABLE(product.localizedTitle),
                                  @"description": NILABLE(product.localizedDescription),
+                                 @"priceAsDecimal": NILABLE(product.price),
                                  @"price": NILABLE([RMStore localizedPriceOfProduct:product]),
                                  @"currency": NILABLE(currencyCode)
                                  }];
