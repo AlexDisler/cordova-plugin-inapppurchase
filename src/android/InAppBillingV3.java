@@ -198,8 +198,12 @@ public class InAppBillingV3 extends CordovaPlugin {
 
   protected boolean runPayment(final JSONArray args, final CallbackContext callbackContext, boolean subscribe) {
     final String sku;
+    String developerPayload = "";
     try {
       sku = args.getString(0);
+      if (args.length > 1) {
+        developerPayload = args.getString(1);
+      }
     } catch (JSONException e) {
       callbackContext.error(makeError("Invalid SKU", INVALID_ARGUMENTS));
       return false;
@@ -211,7 +215,6 @@ public class InAppBillingV3 extends CordovaPlugin {
     final Activity cordovaActivity = this.cordova.getActivity();
     int newOrder = orderSerial.getAndIncrement();
     this.cordova.setActivityResultCallback(this);
-
     IabHelper.OnIabPurchaseFinishedListener oipfl = new IabHelper.OnIabPurchaseFinishedListener() {
       public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
         if (result.isFailure()) {
@@ -247,9 +250,9 @@ public class InAppBillingV3 extends CordovaPlugin {
       }
     };
     if(subscribe){
-      iabHelper.launchSubscriptionPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, "");
+      iabHelper.launchSubscriptionPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, developerPayload);
     } else {
-      iabHelper.launchPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, "");
+      iabHelper.launchPurchaseFlow(cordovaActivity, sku, newOrder, oipfl, developerPayload);
     }
     return true;
   }
