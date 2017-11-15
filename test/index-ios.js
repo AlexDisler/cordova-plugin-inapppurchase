@@ -3,6 +3,8 @@ import assert from 'assert';
 
 describe('iOS purchases', () => {
 
+  const execError = errorCode => (success, err, pluginName, name, args) => err({ errorCode });
+
   before(() => {
     GLOBAL.window = {};
     GLOBAL.window.cordova = {};
@@ -163,6 +165,17 @@ describe('iOS purchases', () => {
       }
     });
 
+    it('should return a message of USER_CANCELLED when there is a PaymentCancelled error', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(2)
+        await inAppPurchase.buy('com.test.prod1');
+        done(new Error('Call to #buy() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.message === 'USER_CANCELLED', 'should report USER_CANCELLED message');
+        done();
+      }
+    });
+
   });
 
   describe('#subscribe()', () => {
@@ -184,6 +197,17 @@ describe('iOS purchases', () => {
         done();
       } catch (err) {
         done(err);
+      }
+    });
+
+    it('should return a message of USER_CANCELLED when there is a PaymentCancelled error', async (done) => {
+      try {
+        GLOBAL.window.cordova.exec = execError(2)
+        await inAppPurchase.subscribe('com.test.prod1');
+        done(new Error('Call to #subscribe() suceeded but was expected to fail.'));
+      } catch (err) {
+        assert(err.message === 'USER_CANCELLED', 'should report USER_CANCELLED message');
+        done();
       }
     });
 

@@ -9,13 +9,16 @@
 
 const inAppPurchase = { utils };
 
+const createIapError = (reject) => {
+  return (err = {}) => {
+    err.message = err.errorCode === 2 ? 'USER_CANCELLED' : err.message;
+    return reject(err);
+  };
+};
+
 const nativeCall = (name, args = []) => {
   return new Promise((resolve, reject) => {
-    window.cordova.exec((res) => {
-      resolve(res);
-    }, (err) => {
-      reject(err);
-    }, 'PaymentsPlugin', name, args);
+    window.cordova.exec(resolve, createIapError(reject), 'PaymentsPlugin', name, args);
   });
 };
 
