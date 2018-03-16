@@ -28,9 +28,10 @@ public class SkuDetails {
     String mItemType;
     String mSku;
     String mType;
+    Double mPriceAsDecimal;
     String mPrice;
+    String mPriceCurrency;
     String mPriceRaw;
-    String mCurrencyCode;
     String mTitle;
     String mDescription;
     String mJson;
@@ -46,7 +47,8 @@ public class SkuDetails {
         mSku = o.optString("productId");
         mType = o.optString("type");
         mPrice = o.optString("price");
-        mCurrencyCode = o.optString("price_currency_code");
+        mPriceCurrency = o.optString("price_currency_code");
+        mPriceAsDecimal = Double.parseDouble(o.optString("price_amount_micros"))/Double.valueOf(1000000);
         mTitle = o.optString("title");
         mDescription = o.optString("description");
 
@@ -60,8 +62,9 @@ public class SkuDetails {
     public String getSku() { return mSku; }
     public String getType() { return mType; }
     public String getPrice() { return mPrice; }
+    public String getPriceCurrency() { return mPriceCurrency; }
+    public Double getPriceAsDecimal() { return mPriceAsDecimal; }
     public String getPriceRaw() { return mPriceRaw; }
-    public String getCurrencyCode() { return mCurrencyCode; }
     public String getTitle() { return mTitle; }
     public String getDescription() { return mDescription; }
 

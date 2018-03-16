@@ -5,6 +5,10 @@
 
 A lightweight Cordova plugin for in app purchases on iOS/Android. See [demo app](https://github.com/AlexDisler/cordova-inapppurchases-app) and [blog post](https://alexdisler.com/2016/02/29/in-app-purchases-ionic-cordova/).
 
+## Looking for maintainers
+
+If you would like to maintain this project, get in touch.
+
 ## Features
 
 - Simple, promise-based API
@@ -54,7 +58,9 @@ If successful, the promise resolves to an array of objects. Each object has the 
 - ```productId``` - SKU / product bundle id (such as 'com.yourapp.prod1')
 - ```title``` - short localized title
 - ```description``` - long localized description
+- ```currency``` - currency of the price (such as 'EUR', 'USD')
 - ```price``` - localized price
+- ```priceAsDecimal``` - price as a decimal
 
 ___Example:___
 
@@ -64,7 +70,7 @@ inAppPurchase
   .then(function (products) {
     console.log(products);
     /*
-       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', price: '...' }, ...]
+       [{ productId: 'com.yourapp.prod1', 'title': '...', description: '...', currency: '...', price: '...', priceAsDecimal: '...' }, ...]
     */
   })
   .catch(function (err) {
@@ -137,7 +143,7 @@ On ***iOS*** there is no need to "consume" a product. However, in order to make 
 ___Example:___
 
 ```js
-// fist buy the product...
+// first buy the product...
 inAppPurchase
   .buy('com.yourapp.consumable_prod1')
   .then(function (data) {
@@ -228,6 +234,19 @@ Or, if you would like to watch and re-run tests:
 Coverage report:
 
     $ nyc npm test
+
+## Debugging
+
+- Are you testing on a real device? In App purchases are not supported in emulators/simulators.
+- Have you enabled In-App Purchases for your App ID?
+- Have you checked Cleared for Sale for your product?
+- Does your project’s .plist Bundle ID match your App ID?
+- Have you generated and installed a new provisioning profile for the new App ID?
+- Have you configured your project to code sign using this new provisioning profile?
+- Have you waited several hours since adding your product to iTunes Connect?
+- Have you tried deleting the app from your device and reinstalling?
+- Have you accepted contracts for IAPs in iTunes connect?
+- Is your device jailbroken? If so, you need to revert the jailbreak for IAP to work.
 
 ## Thanks / Credits
 

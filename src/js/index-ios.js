@@ -33,10 +33,13 @@ inAppPurchase.getProducts = (productIds) => {
               productId   : val.productId,
               title       : val.title,
               description : val.description,
-              price       : val.price,
+              priceAsDecimal : val.priceAsDecimal,
               priceRaw    : val.priceRaw,
+              price       : val.price,
               country     : val.country,
-              currency    : val.currency
+              currency    : val.currency,
+              introductoryPrice: val.introductoryPrice,
+              introductoryPriceSupported: val.introductoryPriceSupported,
             };
           });
           resolve(arr);

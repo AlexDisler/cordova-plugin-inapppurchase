@@ -36,7 +36,7 @@
     for (SKProduct *product in products) {
 
       NSString *country = [product.priceLocale objectForKey:NSLocaleCountryCode];
-      NSString *currency = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
+      NSString *currencyCode = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
 
       NSNumber *isIntroductoryPriceSupported = @0;
       NSDictionary *introductoryPriceInfo = nil;
@@ -68,12 +68,11 @@
                                  @"productId": NILABLE(product.productIdentifier),
                                  @"title": NILABLE(product.localizedTitle),
                                  @"description": NILABLE(product.localizedDescription),
-                                 @"price": NILABLE([RMStore localizedPriceOfProduct:product]),
-
-                                 @"country": NILABLE(country),
-                                 @"currency": NILABLE(currency),
+                                 @"priceAsDecimal": NILABLE(product.price),
                                  @"priceRaw": NILABLE([product.price stringValue]),
-
+                                 @"price": NILABLE([RMStore localizedPriceOfProduct:product]),
+                                 @"country": NILABLE(country),
+                                 @"currency": NILABLE(currencyCode),
                                  @"introductoryPrice": NILABLE(introductoryPriceInfo),
                                  @"introductoryPriceSupported": isIntroductoryPriceSupported
                               }];
@@ -182,8 +181,7 @@
     SKPaymentTransaction *transaction = userInfo[@"transaction"];
     NSString *productId = userInfo[@"productIdentifier"];
 
-    NSLog(@"Transaction Finished : %@ (productId: %@)", transaction, productId);
-
+    // NSLog(@"Transaction Finished : %@ (productId: %@)", transaction, productId);
 
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];

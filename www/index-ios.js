@@ -28,6 +28,21 @@ utils.validArrayOfStrings = function (val) {
 utils.validString = function (val) {
   return val && val.length && typeof val === 'string';
 };
+
+utils.chunk = function (array, size) {
+  if (!Array.isArray(array)) {
+    throw new Error('Invalid array');
+  }
+
+  if (typeof size !== 'number' || size < 1) {
+    throw new Error('Invalid size');
+  }
+
+  var times = Math.ceil(array.length / size);
+  return Array.apply(null, Array(times)).reduce(function (result, val, i) {
+    return result.concat([array.slice(i * size, (i + 1) * size)]);
+  }, []);
+};
 'use strict';
 
 /*!
@@ -42,7 +57,7 @@ utils.validString = function (val) {
 var inAppPurchase = { utils: utils };
 
 var nativeCall = function nativeCall(name) {
-  var args = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+  var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
   return new Promise(function (resolve, reject) {
     window.cordova.exec(function (res) {
@@ -67,8 +82,9 @@ inAppPurchase.getProducts = function (productIds) {
               productId: val.productId,
               title: val.title,
               description: val.description,
-              price: val.price,
+              priceAsDecimal: val.priceAsDecimal,
               priceRaw: val.priceRaw,
+              price: val.price,
               country: val.country,
               currency: val.currency,
               introductoryPrice: val.introductoryPrice,

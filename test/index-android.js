@@ -45,7 +45,7 @@ describe('Android purchases', () => {
             assert(typeof success === 'function', 'should define a success callback');
             assert(typeof err === 'function', 'should define an error callback');
             assert(pluginName === 'InAppBillingV3', 'invalid Android plugin name');
-            assert(args === productIds, 'should get productIds as args');
+            assert.deepEqual(args, productIds, 'should get productIds as args');
             getSkuDetailsCalled = true;
             success([]);
           } else if (name === 'init') {
@@ -60,11 +60,36 @@ describe('Android purchases', () => {
       }
     });
 
+    it('should chunk the getSkuDetails call when more than 19 product ids are given', async (done) => {
+      try {
+        const productIds = [
+          '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'
+        ];
+        const calls = [];
+        GLOBAL.window.cordova.exec = (success, err, pluginName, name, args) => {
+          if (name === 'getSkuDetails') {
+            calls.push(args);
+            success([]);
+          } else if (name === 'init') {
+            success();
+          }
+        };
+        await inAppPurchase.getProducts(productIds);
+        assert.deepEqual(calls, [
+          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'],
+          ['20', '21']
+        ],'getSkuDetails() should be called chunked');
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
     it('should return an array of objects', async (done) => {
       try {
         const products = [
-          { productId: 'com.test.prod1', title: 'prod1 title', description: 'prod1 description', price: '$0.99' },
-          { productId: 'com.test.prod2', title: 'prod2 title', description: 'prod2 description', price: '$1.99' },
+          { productId: 'com.test.prod1', title: 'prod1 title', description: 'prod1 description', price: '$0.99', currency: 'USD', priceAsDecimal: 0.99 },
+          { productId: 'com.test.prod2', title: 'prod2 title', description: 'prod2 description', price: '$1.99', currency: 'USD', priceAsDecimal: 1.99 }
         ];
         const productIds = products.map(i => i.productId );
         GLOBAL.window.cordova.exec = (success, err, pluginName, name) => {
