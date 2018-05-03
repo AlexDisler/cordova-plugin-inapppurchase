@@ -40,7 +40,7 @@
       <merges target="inAppPurchase" />
     </js-module>
 
-    <config-file target="AndroidManifest.xml" parent="/manifest">
+    <config-file target="AndroidManifest.xml" parent="/manifest/uses-permission">
       <uses-permission android:name="com.android.vending.BILLING" />
     </config-file>
 
