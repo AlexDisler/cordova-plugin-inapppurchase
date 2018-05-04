@@ -82,9 +82,13 @@ inAppPurchase.getProducts = function (productIds) {
               productId: val.productId,
               title: val.title,
               description: val.description,
-              price: val.price,
-              currency: val.currency,
               priceAsDecimal: val.priceAsDecimal,
+              priceRaw: val.priceRaw,
+              price: val.price,
+              country: val.country,
+              currency: val.currency,
+              introductoryPrice: val.introductoryPrice,
+              introductoryPriceSupported: val.introductoryPriceSupported
             };
           });
           resolve(arr);

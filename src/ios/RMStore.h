@@ -168,6 +168,13 @@ extern NSInteger const RMStoreErrorCodeUnableToCompleteVerification;
 
 + (NSString*)localizedPriceOfProduct:(SKProduct*)product;
 
++ (NSString*)localizedPriceStringWithPrice:(NSDecimalNumber*)price priceLocale:(NSLocale*)priceLocale;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110200
++ (NSString*)stringForPaymentMode:(SKProductDiscountPaymentMode)paymentMode;
++ (NSString*)stringForPeriodUnit:(SKProductPeriodUnit)unit;
+#endif
+
 #pragma mark Notifications
 ///---------------------------------------------
 /// @name Managing Observers

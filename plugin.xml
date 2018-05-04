@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="cordova-plugin-inapppurchase"
-  version="1.1.0">
+  version="1.3.0">
 
   <name>In App Purchase</name>
   <description>A lightweight cordova plugin for in app purchases on iOS and Android with a simple promise based API.</description>
@@ -60,7 +60,7 @@
     <source-file src="src/android/Purchase.java" target-dir="src/com/alexdisler/inapppurchases" />
     <source-file src="src/android/Security.java" target-dir="src/com/alexdisler/inapppurchases" />
     <source-file src="src/android/SkuDetails.java" target-dir="src/com/alexdisler/inapppurchases" />
-    <source-file src="src/android/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
+    <source-file src="src/android/billing/IInAppBillingService.aidl" target-dir="app/src/main/aidl/com/android/vending/billing" />
   </platform>
 
 </plugin>
