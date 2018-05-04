@@ -40,6 +40,8 @@
 
       NSNumber *isIntroductoryPriceSupported = @0;
       NSDictionary *introductoryPriceInfo = nil;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110200
       if (@available(iOS 11.2, *)) {
         isIntroductoryPriceSupported = @1;
         if (product.introductoryPrice) {
@@ -63,6 +65,7 @@
                                     };
         }
       }
+#endif
 
       [validProducts addObject:@{
                                  @"productId": NILABLE(product.productIdentifier),

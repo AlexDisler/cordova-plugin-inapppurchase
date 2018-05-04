@@ -319,6 +319,7 @@ typedef void (^RMStoreSuccessBlock)();
     return formattedString;
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110200
 + (NSString*)stringForPaymentMode:(SKProductDiscountPaymentMode)paymentMode
 {
     switch (paymentMode) {
@@ -340,6 +341,7 @@ typedef void (^RMStoreSuccessBlock)();
     return @"unknown";
 
 }
+#endif
 
 #pragma mark Observers
 
