@@ -28,7 +28,7 @@ No configuration is necessary.
 
 ### Android
 
-You must create a ```manifest.json``` in your project's ```www``` folder with your Android Billing Key:
+You must create a ```manifest.json``` in your project's ```src``` folder with your Android Billing Key:
 
     { "play_store_key": "<Base64-encoded public key from the Google Play Store>" }
 
