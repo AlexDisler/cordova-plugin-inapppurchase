@@ -15,6 +15,7 @@ utils.errors = {
   103: 'invalid argument - product type must be a string',
   104: 'invalid argument - receipt must be a string of a json',
   105: 'invalid argument - signature must be a string',
+  106: 'platform not supported',
 };
 
 utils.validArrayOfStrings = (val) => {

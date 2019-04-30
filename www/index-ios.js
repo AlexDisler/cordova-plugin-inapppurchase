@@ -16,7 +16,8 @@ utils.errors = {
   102: 'invalid argument - productId must be a string',
   103: 'invalid argument - product type must be a string',
   104: 'invalid argument - receipt must be a string of a json',
-  105: 'invalid argument - signature must be a string'
+  105: 'invalid argument - signature must be a string',
+  106: 'platform not supported'
 };
 
 utils.validArrayOfStrings = function (val) {
@@ -82,9 +83,9 @@ inAppPurchase.getProducts = function (productIds) {
               productId: val.productId,
               title: val.title,
               description: val.description,
-              price: val.price,
-              currency: val.currency,
               priceAsDecimal: val.priceAsDecimal,
+              price: val.price,
+              currency: val.currency
             };
           });
           resolve(arr);
