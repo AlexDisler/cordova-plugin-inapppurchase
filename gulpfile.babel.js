@@ -10,6 +10,7 @@ const indexAndroid = 'index-android.js';
 const polyfillsAndroid = 'polyfills-android.js';
 const indexIos = 'index-ios.js';
 const utils = 'utils.js';
+const indexBrowser = 'index-browser.js';
 
 const build = () => {
   gulp
@@ -24,6 +25,13 @@ const build = () => {
     .pipe(babel())
     .pipe(addsrc.prepend(src + polyfillsAndroid))
     .pipe(concat(indexAndroid))
+    .pipe(gulp.dest(dist));
+  gulp
+    .src([ src + utils, src + indexBrowser ])
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(addsrc.prepend(src + polyfillsAndroid))
+    .pipe(concat(indexBrowser))
     .pipe(gulp.dest(dist));
 };
 

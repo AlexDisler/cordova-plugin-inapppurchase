@@ -82,11 +82,11 @@ utils.chunk = function (array, size) {
     return result.concat([array.slice(i * size, (i + 1) * size)]);
   }, []);
 };
-'use strict';
+"use strict";
 
 /*!
  *
- * Author: Alex Disler (alexdisler.com)
+ * Author: Neil Rackett (mesmotronic.com)
  * github.com/alexdisler/cordova-plugin-inapppurchase
  *
  * Licensed under the MIT license. Please see README for more information.
@@ -95,126 +95,28 @@ utils.chunk = function (array, size) {
 
 var inAppPurchase = { utils: utils };
 
-var createIapError = function createIapError(reject) {
-  return function () {
-    var err = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    err.errorCode = err.code;
-    return reject(err);
-  };
-};
-
-var nativeCall = function nativeCall(name) {
-  var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-  return new Promise(function (resolve, reject) {
-    window.cordova.exec(function (res) {
-      resolve(res);
-    }, createIapError(reject), 'InAppBillingV3', name, args);
-  });
-};
-
-var chunkedGetSkuDetails = function chunkedGetSkuDetails(productIds) {
-  // We need to chunk the getSkuDetails call cause it is only allowed to provide a maximum of 20 items per call
-  return utils.chunk(productIds, 19).reduce(function (promise, productIds) {
-    return promise.then(function (result) {
-      return nativeCall('getSkuDetails', productIds).then(function (items) {
-        return result.concat(items);
-      });
-    });
-  }, Promise.resolve([]));
-};
-
 inAppPurchase.getProducts = function (productIds) {
-  return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validArrayOfStrings(productIds)) {
-      reject(new Error(inAppPurchase.utils.errors[101]));
-    } else {
-      nativeCall('init', []).then(function () {
-        return chunkedGetSkuDetails(productIds);
-      }).then(function (items) {
-        var arr = items.map(function (val) {
-          return {
-            productId: val.productId,
-            title: val.title,
-            description: val.description,
-            price: val.price,
-            currency: val.currency,
-            priceAsDecimal: val.priceAsDecimal
-          };
-        });
-        resolve(arr);
-      }).catch(reject);
-    }
-  });
-};
-
-var executePaymentOfType = function executePaymentOfType(type, productId) {
-  return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(productId)) {
-      reject(new Error(inAppPurchase.utils.errors[102]));
-    } else {
-      nativeCall(type, [productId]).then(function (res) {
-        resolve({
-          signature: res.signature,
-          productId: res.productId,
-          transactionId: res.purchaseToken,
-          type: res.type,
-          productType: res.type,
-          receipt: res.receipt
-        });
-      }).catch(reject);
-    }
-  });
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 inAppPurchase.buy = function (productId) {
-  return executePaymentOfType('buy', productId);
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 inAppPurchase.subscribe = function (productId) {
-  return executePaymentOfType('subscribe', productId);
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 inAppPurchase.consume = function (type, receipt, signature) {
-  return new Promise(function (resolve, reject) {
-    if (!inAppPurchase.utils.validString(type)) {
-      reject(new Error(inAppPurchase.utils.errors[103]));
-    } else if (!inAppPurchase.utils.validString(receipt)) {
-      reject(new Error(inAppPurchase.utils.errors[104]));
-    } else if (!inAppPurchase.utils.validString(signature)) {
-      reject(new Error(inAppPurchase.utils.errors[105]));
-    } else {
-      nativeCall('consumePurchase', [type, receipt, signature]).then(resolve).catch(reject);
-    }
-  });
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 inAppPurchase.restorePurchases = function () {
-  return nativeCall('init', []).then(function () {
-    return nativeCall('restorePurchases', []);
-  }).then(function (purchases) {
-    var arr = [];
-    if (purchases) {
-      arr = purchases.map(function (val) {
-        return {
-          productId: val.productId,
-          state: val.state,
-          transactionId: val.orderId,
-          date: val.date,
-          type: val.type,
-          productType: val.type,
-          signature: val.signature,
-          receipt: val.receipt
-        };
-      });
-    }
-    return Promise.resolve(arr);
-  });
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 inAppPurchase.getReceipt = function () {
-  return Promise.resolve('');
+  return Promise.reject(new Error(inAppPurchase.utils.errors[106]));
 };
 
 module.exports = inAppPurchase;

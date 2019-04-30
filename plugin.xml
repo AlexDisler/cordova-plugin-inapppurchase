@@ -63,4 +63,10 @@
     <source-file src="src/android/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
   </platform>
 
+  <platform name="browser">
+    <js-module src="www/index-browser.js" name="InAppPuchaseBrowser">
+      <clobbers target="inAppPurchase" />
+    </js-module>
+  </platform>
+
 </plugin>
